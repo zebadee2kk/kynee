@@ -1,0 +1,1 @@
+schema schemas/agent-status.schema.json is valid

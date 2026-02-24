@@ -1,0 +1,9 @@
+{
+  "agent_id": "880e8400-e29b-41d4-a716-446655440001",
+  "timestamp": "2026-02-24T23:05:00Z",
+  "status": "scanning",
+  "version": "0.1.1",
+  "system": {
+    "cpu_percent": 25.5
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "asset_id": "660e8400-e29b-41d4-a716-446655440001",
+  "engagement_id": "ENG-2026-001",
+  "agent_id": "agent-rpi3-beta",
+  "discovered_at": "2026-02-24T23:05:00Z",
+  "asset_type": "wireless_ap",
+  "wireless": {
+    "ssid": "corp-wifi",
+    "encryption": "wpa2"
+  }
+}

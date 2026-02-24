@@ -1,0 +1,181 @@
+PASS validation-reports/samples/valid/finding-001.json
+validation-reports/samples/valid/finding-001.json valid
+
+PASS validation-reports/samples/valid/finding-002.json
+validation-reports/samples/valid/finding-002.json valid
+
+PASS validation-reports/samples/valid/finding-003.json
+validation-reports/samples/valid/finding-003.json valid
+
+PASS validation-reports/samples/invalid/finding-invalid-001.json
+validation-reports/samples/invalid/finding-invalid-001.json invalid
+[
+  {
+    instancePath: '',
+    schemaPath: '#/required',
+    keyword: 'required',
+    params: { missingProperty: 'finding_id' },
+    message: "must have required property 'finding_id'"
+  }
+]
+
+PASS validation-reports/samples/invalid/finding-invalid-002.json
+validation-reports/samples/invalid/finding-invalid-002.json invalid
+[
+  {
+    instancePath: '/finding_id',
+    schemaPath: '#/properties/finding_id/format',
+    keyword: 'format',
+    params: { format: 'uuid' },
+    message: 'must match format "uuid"'
+  }
+]
+
+PASS validation-reports/samples/invalid/finding-invalid-003.json
+validation-reports/samples/invalid/finding-invalid-003.json invalid
+[
+  {
+    instancePath: '/category',
+    schemaPath: '#/properties/category/enum',
+    keyword: 'enum',
+    params: { allowedValues: [Array] },
+    message: 'must be equal to one of the allowed values'
+  }
+]
+
+PASS validation-reports/samples/valid/inventory-001.json
+validation-reports/samples/valid/inventory-001.json valid
+
+PASS validation-reports/samples/valid/inventory-002.json
+validation-reports/samples/valid/inventory-002.json valid
+
+PASS validation-reports/samples/valid/inventory-003.json
+validation-reports/samples/valid/inventory-003.json valid
+
+PASS validation-reports/samples/invalid/inventory-invalid-001.json
+validation-reports/samples/invalid/inventory-invalid-001.json invalid
+[
+  {
+    instancePath: '/asset_id',
+    schemaPath: '#/properties/asset_id/format',
+    keyword: 'format',
+    params: { format: 'uuid' },
+    message: 'must match format "uuid"'
+  }
+]
+
+PASS validation-reports/samples/invalid/inventory-invalid-002.json
+validation-reports/samples/invalid/inventory-invalid-002.json invalid
+[
+  {
+    instancePath: '/asset_type',
+    schemaPath: '#/properties/asset_type/enum',
+    keyword: 'enum',
+    params: { allowedValues: [Array] },
+    message: 'must be equal to one of the allowed values'
+  }
+]
+
+PASS validation-reports/samples/invalid/inventory-invalid-003.json
+validation-reports/samples/invalid/inventory-invalid-003.json invalid
+[
+  {
+    instancePath: '',
+    schemaPath: '#/additionalProperties',
+    keyword: 'additionalProperties',
+    params: { additionalProperty: 'unexpected' },
+    message: 'must NOT have additional properties'
+  }
+]
+
+PASS validation-reports/samples/valid/auditlog-001.json
+validation-reports/samples/valid/auditlog-001.json valid
+
+PASS validation-reports/samples/valid/auditlog-002.json
+validation-reports/samples/valid/auditlog-002.json valid
+
+PASS validation-reports/samples/valid/auditlog-003.json
+validation-reports/samples/valid/auditlog-003.json valid
+
+PASS validation-reports/samples/invalid/auditlog-invalid-001.json
+validation-reports/samples/invalid/auditlog-invalid-001.json invalid
+[
+  {
+    instancePath: '',
+    schemaPath: '#/required',
+    keyword: 'required',
+    params: { missingProperty: 'log_id' },
+    message: "must have required property 'log_id'"
+  }
+]
+
+PASS validation-reports/samples/invalid/auditlog-invalid-002.json
+validation-reports/samples/invalid/auditlog-invalid-002.json invalid
+[
+  {
+    instancePath: '/log_hash',
+    schemaPath: '#/properties/log_hash/pattern',
+    keyword: 'pattern',
+    params: { pattern: '^[a-f0-9]{64}$' },
+    message: 'must match pattern "^[a-f0-9]{64}$"'
+  }
+]
+
+PASS validation-reports/samples/invalid/auditlog-invalid-003.json
+validation-reports/samples/invalid/auditlog-invalid-003.json invalid
+[
+  {
+    instancePath: '/action',
+    schemaPath: '#/properties/action/enum',
+    keyword: 'enum',
+    params: { allowedValues: [Array] },
+    message: 'must be equal to one of the allowed values'
+  }
+]
+
+PASS validation-reports/samples/valid/agent-status-001.json
+validation-reports/samples/valid/agent-status-001.json valid
+
+PASS validation-reports/samples/valid/agent-status-002.json
+validation-reports/samples/valid/agent-status-002.json valid
+
+PASS validation-reports/samples/valid/agent-status-003.json
+validation-reports/samples/valid/agent-status-003.json valid
+
+PASS validation-reports/samples/invalid/agent-status-invalid-001.json
+validation-reports/samples/invalid/agent-status-invalid-001.json invalid
+[
+  {
+    instancePath: '',
+    schemaPath: '#/required',
+    keyword: 'required',
+    params: { missingProperty: 'agent_id' },
+    message: "must have required property 'agent_id'"
+  }
+]
+
+PASS validation-reports/samples/invalid/agent-status-invalid-002.json
+validation-reports/samples/invalid/agent-status-invalid-002.json invalid
+[
+  {
+    instancePath: '/agent_id',
+    schemaPath: '#/properties/agent_id/format',
+    keyword: 'format',
+    params: { format: 'uuid' },
+    message: 'must match format "uuid"'
+  }
+]
+
+PASS validation-reports/samples/invalid/agent-status-invalid-003.json
+validation-reports/samples/invalid/agent-status-invalid-003.json invalid
+[
+  {
+    instancePath: '/status',
+    schemaPath: '#/properties/status/enum',
+    keyword: 'enum',
+    params: { allowedValues: [Array] },
+    message: 'must be equal to one of the allowed values'
+  }
+]
+
+SUMMARY valid_pass=12/12 invalid_reject=12/12

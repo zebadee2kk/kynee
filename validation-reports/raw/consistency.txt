@@ -1,0 +1,165 @@
+## Version strings
+./CODEX_HANDOVER.md:248:# - README.md shows v0.1.0-dev
+./CODEX_HANDOVER.md:249:# - CHANGELOG.md references 0.1.0
+./CODEX_HANDOVER.md:507:- Version numbers: ✓ Consistent (0.1.0-dev)
+./docs/ops/branching-and-ai-collaboration.md:272:git tag -a v0.1.0 -m "Week 1 milestone: Governance and schemas"
+./docs/ops/branching-and-ai-collaboration.md:273:git push origin v0.1.0
+./README.md:281:**Version**: 0.1.0-dev  
+
+## Project name
+./ai-coders/handover-chatgpt.md:23:  - Audience: Security professionals deploying KYNEĒ
+./ai-coders/handover-chatgpt.md:33:- [x] **Tutorial 1**: "Your First KYNEĒ Engagement" (`docs/tutorials/first-engagement.md`)
+./ai-coders/handover-chatgpt.md:37:- [x] **Tutorial 2**: "Interpreting KYNEĒ Findings" (`docs/tutorials/interpreting-findings.md`)
+./ai-coders/handover-chatgpt.md:144:sudo dd if=kynee-agent.img of=/dev/sdX bs=4M status=progress
+./ai-coders/handover-grok.md:93:- Only AI with context to load entire KYNEĒ repo + dependencies
+./ai-coders/handover-grok.md:123:You are a security analyst assistant for the KYNEĒ platform.
+./ai-coders/handover-vscode.md:94:cd ~/projects/kynee
+./ai-coders/handover-copilot.md:109:- **Project-specific logic**: Copilot doesn't know KYNEĒ architecture
+./ai-coders/README.md:5:This directory contains handover files and task assignments for multiple AI coding assistants working collaboratively on KYNEĒ. Each AI has unique strengths, token limits, and cost profiles—this system optimizes their use.
+./ROADMAP.md:1:# KYNEĒ Development Roadmap
+./ROADMAP.md:11:This roadmap outlines an 8-week sprint to deliver a beta-quality KYNEĒ system with all core functionality operational. Each week builds incrementally toward a production-ready portable security assessment platform.
+./SUPPORT.md:10:2. **Existing Issues**: [Search open/closed issues](https://github.com/zebadee2kk/kynee/issues)
+./SUPPORT.md:11:3. **Discussions**: [Search community discussions](https://github.com/zebadee2kk/kynee/discussions)
+./SUPPORT.md:26:[Start a discussion →](https://github.com/zebadee2kk/kynee/discussions)
+./SUPPORT.md:38:[Open an issue →](https://github.com/zebadee2kk/kynee/issues/new/choose)
+./SUPPORT.md:57:**Q: Can I use KYNEĒ for bug bounties?**  
+./SUPPORT.md:60:**Q: Can I use KYNEĒ on my home network?**  
+./SUPPORT.md:64:A: KYNEĒ has policy enforcement to prevent this, but if it happens:
+./SUPPORT.md:112:Interested organizations can express interest in [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions) with the `business` tag.
+./GOVERNANCE.md:1:# KYNEĒ Project Governance
+./GOVERNANCE.md:5:This document defines how decisions are made in the KYNEĒ project and how contributions are governed.
+./GOVERNANCE.md:137:- **General questions**: [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions)
+./CODEX_HANDOVER.md:11:You are being handed a freshly initialized security project repository for **Project KYNEĒ** (ethical penetration testing platform). Your mission is to perform comprehensive overnight validation to ensure:
+./CODEX_HANDOVER.md:49:- .vscode/kynee.code-workspace
+./CODEX_HANDOVER.md:256:grep -rni "kynee\|KYNEE\|KYNEĒ" --include="*.md" . | grep -v "Binary file"
+./CODEX_HANDOVER.md:259:# - Consistent use of "KYNEĒ" (with macron) in titles
+./CODEX_HANDOVER.md:260:# - "kynee" (lowercase) in code/paths
+./CODEX_HANDOVER.md:428:# Project KYNEĒ - Initial Validation Report
+./CODEX_HANDOVER.md:508:- Project name: ✓ Consistent (KYNEĒ / kynee)
+./CODEX_HANDOVER.md:589:git clone https://github.com/zebadee2kk/kynee.git
+./CODEX_HANDOVER.md:590:cd kynee
+./docs/tutorials/flipper-integration.md:3:This guide shows how to connect a Flipper Zero to KYNEE for authorized physical-layer testing.
+./docs/tutorials/flipper-integration.md:13:- Raspberry Pi running the KYNEE agent
+./docs/tutorials/first-engagement.md:1:# Tutorial: Your First KYNEE Engagement
+./docs/tutorials/first-engagement.md:5:**Important:** Only run KYNEE on systems you have explicit written authorization to test. Use the Rules of Engagement (RoE) template: [docs/legal/rules-of-engagement-template.md](../legal/rules-of-engagement-template.md).
+./docs/tutorials/first-engagement.md:11:- KYNEE console running (local or hosted)
+./docs/tutorials/first-engagement.md:47:sudo kynee-agent enroll --console https://console.example.com --token <TOKEN>
+./docs/tutorials/interpreting-findings.md:1:# Tutorial: Interpreting KYNEE Findings
+./docs/ai-assistant.md:3:The KYNEE AI assistant analyzes findings and suggests next steps. It never executes actions directly.
+./docs/legal/scope-and-authorization.md:5:This document provides guidance for security professionals using KYNEĒ to ensure all activities are properly authorized, scoped, and documented.
+./docs/legal/scope-and-authorization.md:13:**CRITICAL**: Never deploy KYNEĒ without explicit written permission.
+./docs/legal/scope-and-authorization.md:61:- **KYNEĒ Deployment**: Not typical (use from external IP)
+./docs/legal/scope-and-authorization.md:66:- **KYNEĒ Deployment**: On client premises, connected to internal network
+./docs/legal/scope-and-authorization.md:71:- **KYNEĒ Deployment**: May involve physical infiltration
+./docs/legal/scope-and-authorization.md:77:- **KYNEĒ Deployment**: Positioned for Wi-Fi/Bluetooth range
+./docs/legal/scope-and-authorization.md:111:## KYNEĒ Configuration for Compliance
+./docs/legal/scope-and-authorization.md:188:1. Immediately disable KYNEĒ agent (via console "kill switch" or physical power-off)
+./docs/legal/scope-and-authorization.md:214:**Default Policy** (per KYNEĒ [ETHICAL_USE_POLICY.md](../../ETHICAL_USE_POLICY.md)):
+./docs/legal/scope-and-authorization.md:292:**Maintained By**: KYNEĒ Project Legal Compliance Working Group
+./docs/legal/rules-of-engagement-template.md:271:## Appendix A: KYNEĒ Device Information
+./docs/legal/rules-of-engagement-template.md:273:**Device ID**: [Agent UUID from KYNEĒ console]  
+./docs/legal/rules-of-engagement-template.md:290:**Maintained By**: KYNEĒ Project ([https://github.com/zebadee2kk/kynee](https://github.com/zebadee2kk/kynee))
+./docs/ops/branching-and-ai-collaboration.md:5:This document establishes strict rules for branch management and collaboration to prevent conflicts when multiple AI agents and human developers work in parallel on KYNEĒ.
+./docs/architecture/overview.md:3:This document gives a high-level view of KYNEE components and how data flows between them.
+./docs/architecture/adr-0003-data-serialization.md:170:  "$id": "https://kynee.dev/schemas/findings.schema.json",
+./docs/architecture/adr-0002-transport-protocol.md:12:The KYNEĒ agent (Raspberry Pi) must communicate securely with the console (server/cloud) to:
+./docs/architecture/adr-0004-audit-log-integrity.md:8:KYNEĒ audit logs must be **tamper-evident** for legal/compliance purposes. Requirements:
+./docs/architecture/adr-0002-transport-design.md:12:The KYNEĒ agent must communicate securely with the console over untrusted networks. Requirements:
+./docs/architecture/adr-0004-audit-log-immutability.md:12:KYNEĒ requires tamper-evident audit logging for compliance and legal defensibility. Every agent action must be logged immutably with:
+./docs/architecture/adr-0000-index.md:5:Architecture Decision Records document significant architectural choices made during the KYNEĒ project. Each ADR captures:
+./docs/architecture/adr-0001-agent-language.md:12:The KYNEĒ agent runs on Raspberry Pi 3 (ARM, 1GB RAM) and must:
+./docs/getting-started.md:5:**Important:** KYNEE is for authorized security assessments only. Read the ethical policy before you begin: [ETHICAL_USE_POLICY.md](../ETHICAL_USE_POLICY.md).
+./docs/getting-started.md:22:git clone https://github.com/zebadee2kk/kynee.git
+./docs/getting-started.md:23:cd kynee
+./docs/getting-started.md:58:code .vscode/kynee.code-workspace
+./docs/getting-started.md:119:- Check open issues: https://github.com/zebadee2kk/kynee/issues
+./docs/getting-started.md:120:- Ask questions in discussions: https://github.com/zebadee2kk/kynee/discussions
+./docs/FAQ.md:3:This FAQ covers legal, hardware, and usage questions about KYNEE.
+./docs/FAQ.md:9:**Q1: Is KYNEE legal to use?**
+./docs/FAQ.md:13:A: Yes. KYNEE requires a signed RoE that defines scope, time windows, and allowed methods.
+./docs/FAQ.md:15:**Q3: Can I use KYNEE on public Wi-Fi?**
+./docs/FAQ.md:21:**Q5: Does KYNEE allow social engineering?**
+./docs/FAQ.md:60:**Q14: Does KYNEE scan automatically?**
+./docs/FAQ.md:66:**Q16: Does KYNEE support wireless and Bluetooth testing?**
+./docs/FAQ.md:72:**Q18: Does KYNEE store credentials?**
+./docs/FAQ.md:92:**Q22: Is KYNEE production-ready?**
+./docs/security-model.md:3:This document explains how KYNEE enforces ethical use and protects sensitive data.
+./CHANGELOG.md:3:All notable changes to KYNEĒ will be documented in this file.
+./CONTRIBUTING.md:1:# Contributing to KYNEĒ
+./CONTRIBUTING.md:3:Thank you for your interest in contributing to KYNEĒ! We welcome contributions from security professionals, developers, and researchers who share our commitment to ethical security practices.
+./CONTRIBUTING.md:44:git clone https://github.com/YOUR_USERNAME/kynee.git
+./CONTRIBUTING.md:45:cd kynee
+./CONTRIBUTING.md:46:git remote add upstream https://github.com/zebadee2kk/kynee.git
+./CONTRIBUTING.md:132:- Go to [https://github.com/zebadee2kk/kynee/pulls](https://github.com/zebadee2kk/kynee/pulls)
+./CONTRIBUTING.md:160:**Non-security bugs**: Open a [GitHub Issue](https://github.com/zebadee2kk/kynee/issues/new/choose) with:
+./CONTRIBUTING.md:162:- KYNEĒ version
+./CONTRIBUTING.md:172:Open a [Feature Request](https://github.com/zebadee2kk/kynee/issues/new/choose) with:
+./CONTRIBUTING.md:225:- **General Questions**: [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions)
+./CONTRIBUTING.md:231:**Thank you for helping make KYNEĒ a professional, ethical, and powerful tool for the security community!**
+./console/README.md:1:# KYNEE Console
+./console/README.md:3:The KYNEE console is a web-based command center that manages engagements, agents, findings, and audit logs.
+./console/README.md:36:| `KYNEE_ENV` | Environment name | `dev` |
+./console/README.md:37:| `DATABASE_URL` | PostgreSQL connection string | `postgresql://kynee:kynee@db:5432/kynee` |
+./ETHICAL_USE_POLICY.md:5:KYNEĒ is designed exclusively for **authorized security assessments** conducted by licensed professionals. This policy establishes clear boundaries for legal and ethical use.
+./ETHICAL_USE_POLICY.md:11:You may use KYNEĒ if you meet **ALL** of these conditions:
+./ETHICAL_USE_POLICY.md:37:You **MUST NOT** use KYNEĒ for:
+./ETHICAL_USE_POLICY.md:51:KYNEĒ includes technical controls to enforce ethical use:
+./ETHICAL_USE_POLICY.md:76:Before deploying KYNEĒ, ensure your RoE includes:
+./ETHICAL_USE_POLICY.md:93:All contributors to KYNEĒ must:
+./ETHICAL_USE_POLICY.md:104:If you become aware of KYNEĒ being used unethically or illegally:
+./ETHICAL_USE_POLICY.md:117:The KYNEĒ project and its contributors:
+./ETHICAL_USE_POLICY.md:152:- **General Discussion**: [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions)
+./hardware/flipper/integration-notes.md:13:KYNEĒ integrates Flipper Zero to extend physical-layer testing capabilities during authorized penetration tests.
+./hardware/flipper/integration-notes.md:220:STRING echo "Hello from KYNEE"
+./hardware/flipper/integration-notes.md:270:## KYNEĒ Agent Integration
+./hardware/bill-of-materials.md:113:- Files: [`hardware/enclosure/kynee-case-v1.stl`](enclosure/) (to be added)
+./hardware/compatibility-matrix.md:16:1. Boot KYNEĒ agent on hardware
+./hardware/compatibility-matrix.md:125:| 3D-Printed | KYNEĒ v1 (custom) | PLA/ABS | Passive (vents) | ❓ Untested | Design in progress |
+./agent/README.md:1:# KYNEE Agent
+./agent/README.md:3:The KYNEE agent runs on a Raspberry Pi and performs authorized data collection during a security assessment. It reports findings back to the console and records immutable audit logs.
+./agent/README.md:31:sudo dpkg -i kynee-agent_0.9.0_armhf.deb
+./agent/README.md:41:/etc/kynee/agent.yaml
+./agent/README.md:57:sudo systemctl enable kynee-agent
+./agent/README.md:58:sudo systemctl start kynee-agent
+./agent/README.md:59:sudo systemctl status kynee-agent
+./agent/README.md:68:- Audit log: `/var/lib/kynee/audit.log`
+./agent/README.md:69:- Findings cache: `/var/lib/kynee/findings/`
+./agent/README.md:70:- Agent log: `/var/log/kynee/agent.log`
+./agent/README.md:98:sudo dpkg -r kynee-agent
+./SECURITY.md:23:   - Or use [GitHub Security Advisories](https://github.com/zebadee2kk/kynee/security/advisories/new)
+./SECURITY.md:72:6. **Segment networks**: Isolate KYNEĒ console from production infrastructure
+./SECURITY.md:118:KYNEĒ uses industry-standard cryptography:
+./SECURITY.md:143:If KYNEĒ is compromised in a production engagement:
+./SECURITY.md:160:- **GitHub Security Advisories**: [https://github.com/zebadee2kk/kynee/security/advisories](https://github.com/zebadee2kk/kynee/security/advisories)
+./README.md:1:# KYNEĒ (Helm of Hades)
+./README.md:9:KYNEĒ is a Raspberry Pi-based autonomous penetration testing agent designed for authorized security assessments. Named after the Helm of Hades (which granted invisibility in Greek mythology), it combines low-cost hardware with professional security tools for stealthy reconnaissance.
+./README.md:11:> **⚠️ CRITICAL**: KYNEĒ is designed exclusively for **authorized** penetration testing with written permission. Unauthorized use is illegal and unethical. See [Ethical Use Policy](ETHICAL_USE_POLICY.md).
+./README.md:37:kynee/
+./README.md:73:sudo dpkg -i kynee-agent_0.9.0_armhf.deb
+./README.md:76:sudo kynee-agent enroll --console https://console.example.com
+./README.md:79:sudo kynee-agent start --roe engagement-001.roe.json
+./README.md:117:git clone https://github.com/zebadee2kk/kynee.git
+./README.md:118:cd kynee
+./README.md:130:code .vscode/kynee.code-workspace
+./README.md:187:KYNEĒ is designed for **authorized penetration testing only**. Key principles:
+./README.md:208:2. Check [GitHub Issues](https://github.com/zebadee2kk/kynee/issues) for open tasks
+./README.md:251:- **Issues & Questions**: [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions)
+./README.md:268:KYNEĒ builds upon the work of:
+./README.md:276:**⚠️ Disclaimer**: The developers of KYNEĒ are not responsible for misuse. This tool is provided for lawful, authorized security testing only. Users are solely responsible for compliance with applicable laws.
+
+## License header
+Apache License
+Version 2.0, January 2004
+http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+9:Licensed under the Apache License, Version 2.0 (the "License");
+
+## Required files
+✓ README.md
+✓ LICENSE
+✓ NOTICE
+✓ CODE_OF_CONDUCT.md
+✓ CONTRIBUTING.md
+✓ SECURITY.md

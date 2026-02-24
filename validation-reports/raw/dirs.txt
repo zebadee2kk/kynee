@@ -1,0 +1,14 @@
+✓ agent/
+✓ console/
+✓ docs/architecture/
+✓ docs/build/
+✓ docs/ops/
+✓ docs/api/
+✓ docs/legal/
+✓ hardware/
+✓ hardware/flipper/
+✓ infra/
+✓ scripts/
+✓ examples/
+✓ third_party/licenses/
+✓ schemas/

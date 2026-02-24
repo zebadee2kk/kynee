@@ -1,0 +1,11 @@
+{
+  "finding_id": "550e8400-e29b-41d4-a716-446655440001",
+  "engagement_id": "ENG-2026-001",
+  "agent_id": "agent-rpi3-beta",
+  "timestamp": "2026-02-24T23:10:00Z",
+  "tool": "airodump-ng",
+  "category": "wireless",
+  "severity": "low",
+  "title": "Open Wi-Fi network observed",
+  "description": "SSID guest is open"
+}

@@ -1,0 +1,1 @@
+schema schemas/findings.schema.json is valid

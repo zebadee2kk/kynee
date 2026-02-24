@@ -1,0 +1,1 @@
+schema schemas/auditlog.schema.json is valid

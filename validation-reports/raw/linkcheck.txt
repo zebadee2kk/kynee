@@ -1,0 +1,470 @@
+## .github/pull_request_template.md
+
+FILE: .github/pull_request_template.md
+  No hyperlinks found!
+
+  0 links checked.
+
+
+## CHANGELOG.md
+
+FILE: CHANGELOG.md
+  [✓] https://keepachangelog.com/en/1.0.0/
+  [✓] https://semver.org/spec/v2.0.0.html
+
+  2 links checked.
+
+
+## CODEX_HANDOVER.md
+
+FILE: CODEX_HANDOVER.md
+  No hyperlinks found!
+
+  0 links checked.
+
+
+## CODE_OF_CONDUCT.md
+
+FILE: CODE_OF_CONDUCT.md
+  [✓] https://www.contributor-covenant.org
+  [✓] https://www.contributor-covenant.org/version/2/0/code_of_conduct.html
+  [✓] https://github.com/mozilla/diversity
+  [✓] https://www.contributor-covenant.org/faq
+  [✓] https://www.contributor-covenant.org/translations
+
+  5 links checked.
+
+
+## CONTRIBUTING.md
+
+FILE: CONTRIBUTING.md
+  [✓] ETHICAL_USE_POLICY.md
+  [✓] CODE_OF_CONDUCT.md
+  [✓] SECURITY.md
+  [✓] ROADMAP.md
+  [✓] https://www.conventionalcommits.org/
+  [✓] https://github.com/zebadee2kk/kynee/pulls
+  [✓] https://github.com/zebadee2kk/kynee/issues/new/choose
+  [✓] https://opensource.guide/how-to-contribute/
+  [✓] https://www.firsttimersonly.com/
+  [✓] https://docs.github.com/en/pull-requests
+  [✖] CONTRIBUTORS.md
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+
+  12 links checked.
+  [✖] CONTRIBUTORS.md → Status: 400
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## ETHICAL_USE_POLICY.md
+
+FILE: ETHICAL_USE_POLICY.md
+  [✓] docs/legal/rules-of-engagement-template.md
+  [✓] SECURITY.md
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+
+  3 links checked.
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+
+[stderr]
+
+  ERROR: 1 dead link found!
+
+
+## GOVERNANCE.md
+
+FILE: GOVERNANCE.md
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+  [✓] SECURITY.md
+
+  2 links checked.
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+
+[stderr]
+
+  ERROR: 1 dead link found!
+
+
+## README.md
+
+FILE: README.md
+  [✓] LICENSE
+  [✓] ETHICAL_USE_POLICY.md
+  [✓] ROADMAP.md
+  [✓] hardware/bill-of-materials.md
+  [✓] docs/legal/rules-of-engagement-template.md
+  [✓] CONTRIBUTING.md
+  [✓] docs/architecture/adr-0000-index.md
+  [✓] docs/ops/branching-and-ai-collaboration.md
+  [✓] CODE_OF_CONDUCT.md
+  [✓] GOVERNANCE.md
+  [✓] SECURITY.md
+  [✓] .github/workflows/
+  [✓] https://github.com/zebadee2kk/kynee/issues
+  [✓] docs/ops/branching-and-ai-collaboration.md#ai-agent-collaboration-rules
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+  [✓] https://www.kali.org/
+  [✓] https://flipperzero.one/
+  [✓] https://www.wireguard.com/
+  [✓] https://owasp.org/
+  [✓] https://github.com/zebadee2kk
+  [✓] https://img.shields.io/badge/License-Apache%202.0-blue.svg
+  [✓] https://img.shields.io/badge/Security-Ethical%20Use%20Required-red.svg
+  [✓] https://img.shields.io/badge/Status-Pre--Alpha-yellow.svg
+
+  23 links checked.
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+
+[stderr]
+
+  ERROR: 1 dead link found!
+
+
+## ROADMAP.md
+
+FILE: ROADMAP.md
+  No hyperlinks found!
+
+  0 links checked.
+
+
+## SECURITY.md
+
+FILE: SECURITY.md
+  [✓] https://github.com/zebadee2kk/kynee/security/advisories/new
+  [✓] ETHICAL_USE_POLICY.md
+  [✖] docs/build/hardening-baseline.md
+  [✖] docs/security-hall-of-fame.md
+  [✓] .github/workflows/security-scan.yml
+  [✓] third_party/licenses/
+  [✖] docs/ops/incident-response.md
+  [✓] https://github.com/zebadee2kk/kynee/security/advisories
+
+  8 links checked.
+  [✖] docs/build/hardening-baseline.md → Status: 400
+  [✖] docs/security-hall-of-fame.md → Status: 400
+  [✖] docs/ops/incident-response.md → Status: 400
+
+[stderr]
+
+  ERROR: 3 dead links found!
+
+
+## SUPPORT.md
+
+FILE: SUPPORT.md
+  [✓] docs/
+  [✓] README.md
+  [✓] https://github.com/zebadee2kk/kynee/issues
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+  [✓] .github/ISSUE_TEMPLATE/bug_report.yml
+  [✓] .github/ISSUE_TEMPLATE/feature_request.yml
+  [✓] .github/ISSUE_TEMPLATE/security_question.yml
+  [✓] SECURITY.md
+  [✓] https://github.com/zebadee2kk/kynee/issues/new/choose
+  [✓] hardware/compatibility-matrix.md
+  [✓] hardware/bill-of-materials.md
+  [✖] docs/build/kali-rpi3-minimal.md
+  [✓] ETHICAL_USE_POLICY.md
+  [✓] docs/legal/scope-and-authorization.md
+  [✓] docs/architecture/adr-0002-transport-design.md
+  [✓] hardware/flipper/integration-notes.md
+  [✓] CONTRIBUTING.md
+  [✓] ROADMAP.md
+  [✓] docs/legal/
+  [✓] hardware/
+  [✓] docs/architecture/
+
+  21 links checked.
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+  [✖] docs/build/kali-rpi3-minimal.md → Status: 400
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## agent/README.md
+
+FILE: agent/README.md
+  [✓] ../ETHICAL_USE_POLICY.md
+  [✓] ../hardware/bill-of-materials.md
+
+  2 links checked.
+
+
+## console/README.md
+
+FILE: console/README.md
+  [✓] ../ETHICAL_USE_POLICY.md
+
+  1 link checked.
+
+
+## docs/FAQ.md
+
+FILE: docs/FAQ.md
+  [✓] ../hardware/bill-of-materials.md
+  [✓] ../hardware/compatibility-matrix.md
+  [✓] tutorials/flipper-integration.md
+  [✓] getting-started.md
+  [✓] ../SECURITY.md
+
+  5 links checked.
+
+
+## docs/ai-assistant.md
+
+FILE: docs/ai-assistant.md
+  No hyperlinks found!
+
+  0 links checked.
+
+
+## docs/architecture/adr-0000-index.md
+
+FILE: docs/architecture/adr-0000-index.md
+  [✓] adr-0001-agent-language.md
+  [✓] adr-0002-transport-design.md
+  [✓] adr-0003-data-serialization.md
+  [✓] adr-0004-audit-log-immutability.md
+
+  4 links checked.
+
+
+## docs/architecture/adr-0001-agent-language.md
+
+FILE: docs/architecture/adr-0001-agent-language.md
+  [✖] https://www.kali.org/docs/general-use/python-tutorials/
+  [✖] https://www.raspberrypi.com/news/python-comes-to-the-raspberry-pi/
+  [✓] https://docs.python.org/3/library/subprocess.html#security-considerations
+
+  3 links checked.
+  [✖] https://www.kali.org/docs/general-use/python-tutorials/ → Status: 404
+  [✖] https://www.raspberrypi.com/news/python-comes-to-the-raspberry-pi/ → Status: 403
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## docs/architecture/adr-0002-transport-design.md
+
+FILE: docs/architecture/adr-0002-transport-design.md
+  [✖] https://www.wireguard.com/protocol/
+  [✓] https://www.pivpn.io/
+  [✖] https://smallstep.com/hello-mtls/doc/combined/
+
+  3 links checked.
+  [✖] https://www.wireguard.com/protocol/ → Status: 503
+  [✖] https://smallstep.com/hello-mtls/doc/combined/ → Status: 404
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## docs/architecture/adr-0002-transport-protocol.md
+
+FILE: docs/architecture/adr-0002-transport-protocol.md
+  [✓] adr-0003-data-serialization.md
+  [✓] adr-0004-audit-log-immutability.md
+
+  2 links checked.
+
+
+## docs/architecture/adr-0003-data-serialization.md
+
+FILE: docs/architecture/adr-0003-data-serialization.md
+  [✓] https://json-schema.org/
+  [✓] https://github.com/eishay/jvm-serializers/wiki
+  [✓] https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html
+
+  3 links checked.
+
+
+## docs/architecture/adr-0004-audit-log-immutability.md
+
+FILE: docs/architecture/adr-0004-audit-log-immutability.md
+  [✓] https://en.wikipedia.org/wiki/Merkle_tree
+  [✓] https://man7.org/linux/man-pages/man1/chattr.1.html
+  [✓] https://gdpr-info.eu/art-17-gdpr/
+  [✓] https://csrc.nist.gov/publications/detail/sp/800-92/final
+
+  4 links checked.
+
+
+## docs/architecture/adr-0004-audit-log-integrity.md
+
+FILE: docs/architecture/adr-0004-audit-log-integrity.md
+  [✓] https://opentimestamps.org/
+  [✓] https://tools.ietf.org/html/rfc3161
+  [✓] https://github.com/google/trillian
+
+  3 links checked.
+
+
+## docs/architecture/overview.md
+
+FILE: docs/architecture/overview.md
+  [✓] ./adr-0000-index.md
+
+  1 link checked.
+
+
+## docs/getting-started.md
+
+FILE: docs/getting-started.md
+  [✓] ../ETHICAL_USE_POLICY.md
+  [✓] ../CONTRIBUTING.md
+  [✓] ../ROADMAP.md
+  [✓] https://github.com/zebadee2kk/kynee/issues
+  [✖] https://github.com/zebadee2kk/kynee/discussions
+
+  5 links checked.
+  [✖] https://github.com/zebadee2kk/kynee/discussions → Status: 404
+
+[stderr]
+
+  ERROR: 1 dead link found!
+
+
+## docs/legal/rules-of-engagement-template.md
+
+FILE: docs/legal/rules-of-engagement-template.md
+  [✖] mailto:secure@client.com
+  [✖] mailto:yourteam@pentestcompany.com
+  [✓] https://github.com/zebadee2kk/kynee
+
+  3 links checked.
+  [✖] mailto:secure@client.com → Status: 400
+  [✖] mailto:yourteam@pentestcompany.com → Status: 400
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## docs/legal/scope-and-authorization.md
+
+FILE: docs/legal/scope-and-authorization.md
+  [✓] rules-of-engagement-template.md
+  [✓] ../../ETHICAL_USE_POLICY.md
+  [✓] https://www.law.cornell.edu/uscode/text/18/part-I/chapter-47
+  [✓] https://www.legislation.gov.uk/ukpga/1990/18/contents
+  [✓] https://gdpr-info.eu/art-6-gdpr/
+  [✖] https://www.crest-approved.org/membership/code-of-conduct/
+  [✓] http://www.pentest-standard.org/index.php/Main_Page
+  [✓] https://owasp.org/www-project-web-security-testing-guide/
+  [✓] https://www.coalitioninc.com/
+  [✖] https://www.hiscox.co.uk/cyber-clear
+
+  10 links checked.
+  [✖] https://www.crest-approved.org/membership/code-of-conduct/ → Status: 404
+  [✖] https://www.hiscox.co.uk/cyber-clear → Status: 404
+
+[stderr]
+
+  ERROR: 2 dead links found!
+
+
+## docs/ops/branching-and-ai-collaboration.md
+
+FILE: docs/ops/branching-and-ai-collaboration.md
+  [✓] https://www.conventionalcommits.org/
+
+  1 link checked.
+
+
+## docs/security-model.md
+
+FILE: docs/security-model.md
+  [✓] ai-assistant.md
+
+  1 link checked.
+
+
+## docs/tutorials/first-engagement.md
+
+FILE: docs/tutorials/first-engagement.md
+  [✓] ../legal/rules-of-engagement-template.md
+  [✓] interpreting-findings.md
+  [✓] ../security-model.md
+
+  3 links checked.
+
+
+## docs/tutorials/flipper-integration.md
+
+FILE: docs/tutorials/flipper-integration.md
+  [✓] ../../hardware/flipper/integration-notes.md
+  [✓] first-engagement.md
+  [✓] ../security-model.md
+
+  3 links checked.
+
+
+## docs/tutorials/interpreting-findings.md
+
+FILE: docs/tutorials/interpreting-findings.md
+  [✓] ../security-model.md
+  [✓] first-engagement.md
+
+  2 links checked.
+
+
+## hardware/bill-of-materials.md
+
+FILE: hardware/bill-of-materials.md
+  [✓] https://github.com/aircrack-ng/rtl8812au
+  [✓] https://flipperzero.one/
+  [✖] https://github.com/wh00hw/flipperzero-py
+  [✓] flipper/integration-notes.md
+  [✖] enclosure/
+  [✓] https://thepihut.com/
+  [✓] https://shop.pimoroni.com/
+  [✓] https://amazon.co.uk/
+  [✓] https://shop.flipperzero.one/
+  [✖] https://docs.flipperzero.one/basics/purchase
+
+  10 links checked.
+  [✖] https://github.com/wh00hw/flipperzero-py → Status: 404
+  [✖] enclosure/ → Status: 400
+  [✖] https://docs.flipperzero.one/basics/purchase → Status: 404
+
+[stderr]
+
+  ERROR: 3 dead links found!
+
+
+## hardware/compatibility-matrix.md
+
+FILE: hardware/compatibility-matrix.md
+  [✓] https://github.com/aircrack-ng/rtl8812au
+  [✓] https://github.com/aircrack-ng/rtl8814au
+  [✓] #testing-methodology
+
+  3 links checked.
+
+
+## hardware/flipper/integration-notes.md
+
+FILE: hardware/flipper/integration-notes.md
+  [✓] https://flipperzero.one/update
+  [✓] https://docs.flipperzero.one/
+  [✓] https://docs.flipperzero.one/development/cli
+  [✓] https://forum.flipperzero.one/
+  [✖] https://github.com/wh00hw/flipperzero-py
+
+  5 links checked.
+  [✖] https://github.com/wh00hw/flipperzero-py → Status: 404
+
+[stderr]
+
+  ERROR: 1 dead link found!
+
+

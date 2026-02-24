@@ -1,0 +1,10 @@
+{
+  "log_id": "770e8400-e29b-41d4-a716-446655440002",
+  "timestamp": "2026-02-24T23:20:00Z",
+  "engagement_id": "ENG-2026-002",
+  "agent_id": "agent-rpi3-gamma",
+  "operator_id": "bob@pentestco.com",
+  "action": "emergency_stop",
+  "outcome": "success",
+  "log_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+}
