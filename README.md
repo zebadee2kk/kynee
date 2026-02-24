@@ -1,177 +1,283 @@
-# KYNEĒ 🕵️
+# KYNEĒ (Helm of Hades)
 
-> *Named after the Helm of Hades (Ἅίδος κυνέη) — the legendary Cap of Invisibility worn by Athena, Hermes, and Perseus to conduct reconnaissance unseen.*
-
-**KYNEĒ** is an AI-assisted portable security assessment platform designed exclusively for licensed penetration testers, red teams, and cybersecurity companies conducting **authorized** security assessments.
+**Ethical Penetration Testing Agent for Authorized Security Assessments**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-[![Security](https://img.shields.io/badge/Security-Vulnerability%20Disclosure-red)](SECURITY.md)
-[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Contributor%20Covenant-4baaaa.svg)](CODE_OF_CONDUCT.md)
+[![Security](https://img.shields.io/badge/Security-Ethical%20Use%20Required-red.svg)](ETHICAL_USE_POLICY.md)
+[![Status](https://img.shields.io/badge/Status-Pre--Alpha-yellow.svg)](ROADMAP.md)
 
-## ⚠️ Legal & Ethical Use Only
+KYNEĒ is a Raspberry Pi-based autonomous penetration testing agent designed for authorized security assessments. Named after the Helm of Hades (which granted invisibility in Greek mythology), it combines low-cost hardware with professional security tools for stealthy reconnaissance.
 
-**This tool is intended ONLY for authorized security assessments with explicit written permission.**
-
-- ✅ Licensed penetration testers with signed Rules of Engagement (RoE)
-- ✅ Red team operations with documented authorization
-- ✅ Organizations testing their own infrastructure
-- ❌ Unauthorized network scanning or access
-- ❌ Malicious or illegal activities
-
-See our [**Ethical Use Policy**](ETHICAL_USE_POLICY.md) for complete guidelines.
+> **⚠️ CRITICAL**: KYNEĒ is designed exclusively for **authorized** penetration testing with written permission. Unauthorized use is illegal and unethical. See [Ethical Use Policy](ETHICAL_USE_POLICY.md).
 
 ---
 
-## 🎯 Project Goal
+## 🎯 Features
 
-Create a compact, Raspberry Pi 3-based device that security professionals can legally deploy during authorized penetration tests and red-team exercises. The device performs:
+### Current Status: **Pre-Alpha Development**
 
-- Network discovery and vulnerability auditing
-- Wireless and Bluetooth reconnaissance
-- Physical-layer testing (via Flipper Zero integration)
-- Secure reporting to a central management console
-- AI-assisted analysis with human-in-the-loop approval
+See [ROADMAP.md](ROADMAP.md) for the 8-week development plan (Weeks 1-8 in progress).
+
+### Planned Capabilities
+
+- **Autonomous Network Discovery**: Automated nmap scanning with intelligent target prioritization
+- **Wireless Reconnaissance**: WPA/WPA2 handshake capture, rogue AP detection
+- **Bluetooth/BLE Analysis**: Device enumeration and service discovery
+- **Flipper Zero Integration**: RFID/NFC reading, Sub-GHz analysis, IR capture
+- **Secure Console**: Web-based command center with engagement management
+- **AI-Powered Suggestions**: LLM-driven recommendations for next steps
+- **Audit Logging**: Immutable cryptographic logs for legal compliance
+- **Ethical Guardrails**: Scope enforcement, authorization verification, rate limiting
 
 ---
 
-## 📦 System Architecture
+## 📦 Repository Structure
 
 ```
-┌───────────────────────┐
-│  Raspberry Pi 3 Agent  │
-│  (Kali Linux ARM)     │
-│                       │
-│  • Network Scanning   │
-│  • WiFi/BT Recon      │
-│  • Flipper Control    │
-│  • Audit Logging      │
-└──────────┬───────────┘
-           │
-    WireGuard/TLS
-           │
-┌──────────┴───────────┐
-│  Management Console  │
-│  (FastAPI + React)   │
-│                       │
-│  • Engagement Mgmt   │
-│  • AI Analysis       │
-│  • Approval Workflow │
-│  • Report Generation │
-└───────────────────────┘
+kynee/
+├── agent/                  # Raspberry Pi agent codebase (Python)
+├── console/
+│   ├── backend/           # FastAPI backend
+│   └── frontend/          # React frontend
+├── docs/
+│   ├── architecture/      # ADRs, design docs
+│   ├── build/             # OS setup, hardening guides
+│   ├── ops/               # Deployment, branching strategy
+│   ├── api/               # OpenAPI specs
+│   └── legal/             # RoE templates, compliance
+├── hardware/              # BOM, compatibility, Flipper docs
+├── schemas/               # JSON schemas (findings, inventory, logs)
+├── scripts/               # Build/provisioning scripts
+├── infra/                 # Docker, Helm, Terraform, WireGuard
+├── examples/              # Example configs, use cases
+└── third_party/licenses/  # Third-party licenses
 ```
-
----
-
-## 🛠️ Hardware
-
-- **Base**: Raspberry Pi 3 Model B/B+
-- **Wireless**: USB WiFi adapter (monitor mode capable)
-- **Bluetooth**: USB Bluetooth adapter
-- **Physical**: Flipper Zero (UART/USB integration)
-- **Power**: Portable power bank or LiPo battery
-- **Enclosure**: Compact stealth case
-
-See [`hardware/bill-of-materials.md`](hardware/bill-of-materials.md) for detailed compatibility.
-
----
-
-## 📚 Software Stack
-
-**Agent (Raspberry Pi)**
-- Kali Linux ARM (minimal, <4 GB)
-- Python 3.11+ agent service
-- Systemd integration
-- WireGuard VPN client
-
-**Console (Server/Cloud)**
-- Backend: FastAPI (Python)
-- Frontend: React + TypeScript
-- Database: PostgreSQL
-- AI: Ollama (local) or API integration
-
----
-
-## 📝 Key Features
-
-1. **Authorized-Only Operation**
-   - Requires Rules of Engagement (RoE) upload
-   - Scope-limited scanning (CIDR allowlists)
-   - Immutable audit logging
-
-2. **AI-Assisted Analysis**
-   - Reviews findings and proposes next steps
-   - **Never executes autonomously**
-   - Human approval required for all actions
-
-3. **Comprehensive Reporting**
-   - Structured JSON findings
-   - Exportable client reports
-   - Chain-of-custody audit trails
-
-4. **Flipper Zero Integration**
-   - RFID/NFC testing
-   - Sub-GHz analysis
-   - BadUSB scenarios (authorized only)
-   - IR remote testing
 
 ---
 
 ## 🚀 Quick Start
 
-```bash
-# Clone the repository
-git clone https://github.com/zebadee2kk/kynee.git
-cd kynee
+### Prerequisites
 
-# See documentation for:
-# - Hardware setup: docs/build/kali-rpi3-minimal.md
-# - Agent installation: agent/README.md
-# - Console deployment: console/README.md
+- **Hardware**: Raspberry Pi 3 Model B+ or better (see [hardware/bill-of-materials.md](hardware/bill-of-materials.md))
+- **OS**: Kali Linux ARM (2024.1+)
+- **Optional**: Flipper Zero (for physical security testing)
+
+### Installation (Coming Soon)
+
+```bash
+# 1. Flash Kali ARM image to SD card
+# See docs/build/kali-rpi3-minimal.md (coming in Week 2)
+
+# 2. Install agent
+sudo dpkg -i kynee-agent_0.9.0_armhf.deb
+
+# 3. Enroll agent with console
+sudo kynee-agent enroll --console https://console.example.com
+
+# 4. Start engagement (requires Rules of Engagement file)
+sudo kynee-agent start --roe engagement-001.roe.json
 ```
 
 ---
 
-## 📌 Development Roadmap
+## 📚 Documentation
 
-See [`ROADMAP.md`](ROADMAP.md) for the complete 8-week development plan:
+### User Documentation
 
-- **Week 1**: Foundations + governance
-- **Week 2**: Hardware bring-up + minimal OS
-- **Week 3**: Agent v0 (collectors + data model)
-- **Week 4**: Secure transport + enrollment
-- **Week 5**: Console v0 (backend + UI)
-- **Week 6**: AI assistant (human-in-the-loop)
-- **Week 7**: Integrations + packaging
-- **Week 8**: Beta hardening + documentation
+- [Roadmap](ROADMAP.md) — 8-week development timeline
+- [Ethical Use Policy](ETHICAL_USE_POLICY.md) — **READ THIS FIRST**
+- [Hardware Guide](hardware/bill-of-materials.md) — Component selection
+- [Rules of Engagement Template](docs/legal/rules-of-engagement-template.md) — Authorization framework
+
+### Developer Documentation
+
+- [Contributing Guide](CONTRIBUTING.md) — How to contribute
+- [Architecture Decision Records](docs/architecture/adr-0000-index.md) — Technical decisions
+- [Branching & AI Collaboration](docs/ops/branching-and-ai-collaboration.md) — Git workflow
+- [Code of Conduct](CODE_OF_CONDUCT.md) — Community standards
+- [Governance](GOVERNANCE.md) — Project governance
+- [Security Policy](SECURITY.md) — Vulnerability reporting
+
+---
+
+## 🛠️ Developer Setup
+
+### Prerequisites
+
+- **Python**: 3.11+ (for agent & console backend)
+- **Node.js**: 20+ (for console frontend)
+- **Git**: 2.40+
+- **VS Code** (recommended) or any editor
+
+### Clone & Setup
+
+```bash
+# Clone repository
+git clone https://github.com/zebadee2kk/kynee.git
+cd kynee
+
+# Install pre-commit hooks (optional)
+pip install pre-commit
+pre-commit install
+```
+
+### VS Code Workspace
+
+Open the multi-root workspace for organized development:
+
+```bash
+code .vscode/kynee.code-workspace
+```
+
+This loads separate folders for:
+- Agent (`agent/`)
+- Console Backend (`console/backend/`)
+- Console Frontend (`console/frontend/`)
+- Docs (`docs/`)
+- Hardware (`hardware/`)
+
+With pre-configured settings for Python (Black, Ruff, Pytest) and TypeScript (ESLint, Prettier).
+
+### Branching Strategy
+
+We use a **trunk-based** workflow with short-lived branches:
+
+- `main` — Protected, always releasable
+- `feat/<area>-<description>` — New features
+- `fix/<area>-<description>` — Bug fixes
+- `docs/<area>-<description>` — Documentation
+
+**Critical**: Multiple AI agents and humans collaborate on this repo. See [Branching & AI Collaboration Guidelines](docs/ops/branching-and-ai-collaboration.md) for rules to avoid conflicts.
+
+### Running Tests
+
+```bash
+# Agent tests (when available)
+cd agent
+pytest tests/ -v
+
+# Console backend tests
+cd console/backend
+pytest tests/ -v
+
+# Console frontend tests
+cd console/frontend
+npm test
+```
+
+### CI/CD
+
+GitHub Actions runs on every PR:
+
+- Linting (Ruff, ESLint)
+- Type checking (mypy)
+- Tests (pytest, npm test)
+- Security scanning (Bandit, Semgrep)
+- Schema validation
+
+See [`.github/workflows/`](.github/workflows/) for workflow definitions.
+
+---
+
+## 🔒 Security
+
+### Ethical Use
+
+KYNEĒ is designed for **authorized penetration testing only**. Key principles:
+
+- **Always obtain written authorization** (Rules of Engagement)
+- **Never deploy on unauthorized networks**
+- **Respect scope boundaries** (automated enforcement)
+- **Maintain audit logs** (immutable, cryptographically signed)
+- **Follow laws and regulations** (CFAA, GDPR, etc.)
+
+See [ETHICAL_USE_POLICY.md](ETHICAL_USE_POLICY.md) for full policy.
+
+### Reporting Vulnerabilities
+
+**DO NOT** report security issues via GitHub Issues. See [SECURITY.md](SECURITY.md) for responsible disclosure process.
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions from security professionals! Please read:
+We welcome contributions! Please:
 
-- [**Contributing Guidelines**](CONTRIBUTING.md)
-- [**Code of Conduct**](CODE_OF_CONDUCT.md)
-- [**Security Policy**](SECURITY.md)
+1. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+2. Check [GitHub Issues](https://github.com/zebadee2kk/kynee/issues) for open tasks
+3. Follow [branching guidelines](docs/ops/branching-and-ai-collaboration.md)
+4. Use conventional commits (`feat:`, `fix:`, `docs:`)
+5. Ensure tests pass and linting is clean
 
-**Important**: All contributors must acknowledge and agree to our [Ethical Use Policy](ETHICAL_USE_POLICY.md).
+**For AI Agents**: See [AI Collaboration Rules](docs/ops/branching-and-ai-collaboration.md#ai-agent-collaboration-rules) for handover sequence and conflict avoidance.
 
 ---
 
-## 📜 License
+## 📌 Roadmap
 
-Apache License 2.0 — see [LICENSE](LICENSE) for details.
+Current phase: **Week 1-2** (Foundations)
+
+| Week | Milestone | Status |
+|------|-----------|--------|
+| 1-2 | Foundations (ADRs, schemas, OS) | 🟡 In Progress |
+| 3-4 | Agent Core (collectors, transport) | ⏳ Planned |
+| 5 | Console v0 (backend + frontend) | ⏳ Planned |
+| 6 | AI Assistant Integration | ⏳ Planned |
+| 7-8 | Integrations & Beta Release | ⏳ Planned |
+
+See [ROADMAP.md](ROADMAP.md) for detailed milestones and deliverables.
+
+---
+
+## ⚖️ License
+
+**Apache License 2.0** — See [LICENSE](LICENSE)
+
+### Key Terms
+
+- ✅ **Commercial use allowed**
+- ✅ **Modification allowed**
+- ✅ **Distribution allowed**
+- ✅ **Patent grant included**
+- ⚠️ **Liability/warranty disclaimer**
+
+**However**: You MUST comply with [Ethical Use Policy](ETHICAL_USE_POLICY.md). Apache 2.0 grants software rights, but does not authorize illegal use.
 
 ---
 
 ## 📧 Contact
 
-- **Security Issues**: See [SECURITY.md](SECURITY.md) for responsible disclosure
-- **General Questions**: Open a [GitHub Discussion](https://github.com/zebadee2kk/kynee/discussions)
-- **Professional Inquiries**: [Open an issue](https://github.com/zebadee2kk/kynee/issues) with the `business` label
+- **Issues & Questions**: [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions)
+- **Security**: See [SECURITY.md](SECURITY.md)
+- **Governance**: See [GOVERNANCE.md](GOVERNANCE.md)
 
 ---
 
-## ⚖️ Disclaimer
+## 🔗 Related Projects
 
-THIS SOFTWARE IS PROVIDED FOR AUTHORIZED SECURITY TESTING ONLY. Users are solely responsible for ensuring they have proper authorization before deploying this tool. Unauthorized access to computer systems is illegal. The developers assume no liability for misuse.
+- [Kali Linux](https://www.kali.org/) — Base OS
+- [Flipper Zero](https://flipperzero.one/) — Hardware companion
+- [WireGuard](https://www.wireguard.com/) — Secure transport
+- [OWASP](https://owasp.org/) — Security standards
+
+---
+
+## 🙏 Acknowledgments
+
+KYNEĒ builds upon the work of:
+
+- **Kali Linux Team** — Security tool distribution
+- **Offensive Security** — Training and methodologies
+- **Open-source security community** — Tools and frameworks
+
+---
+
+**⚠️ Disclaimer**: The developers of KYNEĒ are not responsible for misuse. This tool is provided for lawful, authorized security testing only. Users are solely responsible for compliance with applicable laws.
+
+---
+
+**Project Status**: Pre-Alpha Development  
+**Version**: 0.1.0-dev  
+**Last Updated**: February 24, 2026  
+**Maintainer**: [@zebadee2kk](https://github.com/zebadee2kk)
