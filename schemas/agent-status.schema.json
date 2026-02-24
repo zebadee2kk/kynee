@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kynee.dev/schemas/agent-status.schema.json",
+  "title": "KYNEĒ Agent Status",
+  "description": "Real-time status messages from KYNEĒ agents to the console",
+  "type": "object",
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "description": "Agent device UUID",
+      "format": "uuid"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Status message timestamp (ISO 8601 UTC)",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "description": "Agent operational status",
+      "enum": ["online", "idle", "scanning", "offline", "error"]
+    },
+    "engagement_id": {
+      "type": "string",
+      "description": "Current engagement ID (if active)",
+      "pattern": "^ENG-[0-9]{4}-[0-9]{3}$"
+    },
+    "current_task": {
+      "type": "object",
+      "description": "Currently executing task",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "task_type": {
+          "type": "string",
+          "enum": ["network_scan", "wireless_scan", "bluetooth_scan", "flipper_action", "idle"]
+        },
+        "progress_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "eta_seconds": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "description": "Hardware status",
+      "properties": {
+        "cpu_temp_celsius": {
+          "type": "number"
+        },
+        "cpu_usage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "memory_usage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "disk_usage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "battery_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "wifi_adapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "interface": {
+                "type": "string"
+              },
+              "chipset": {
+                "type": "string"
+              },
+              "monitor_mode": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "bluetooth_adapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "interface": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "flipper_zero_connected": {
+          "type": "boolean"
+        }
+      }
+    },
+    "network": {
+      "type": "object",
+      "description": "Network connectivity status",
+      "properties": {
+        "wireguard_connected": {
+          "type": "boolean"
+        },
+        "console_reachable": {
+          "type": "boolean"
+        },
+        "last_heartbeat": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "public_ip": {
+          "type": "string",
+          "format": "ipv4"
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "description": "Recent errors or warnings",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["warning", "error", "critical"]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "description": "Agent software version",
+      "properties": {
+        "agent_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "os_version": {
+          "type": "string"
+        },
+        "kernel_version": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "agent_id",
+    "timestamp",
+    "status",
+    "hardware",
+    "network",
+    "version"
+  ],
+  "additionalProperties": false
+}
