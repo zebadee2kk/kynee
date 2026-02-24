@@ -1,8 +1,10 @@
-KYNEĒ Project
+KYNEĒ - AI-Assisted Portable Security Assessment Platform
 Copyright 2026 KYNEĒ Project Contributors
 
 This product includes software developed by the KYNEĒ Project
 (https://github.com/zebadee2kk/kynee).
+
+================================================================================
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,21 +18,56 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
----
+================================================================================
 
-Third-Party Software
+This software is designed for AUTHORIZED security assessments only.
+Unauthorized access to computer systems is illegal. Users are solely
+responsible for obtaining proper authorization before deploying this tool.
 
-This project incorporates or depends upon third-party software components
-listed in `third_party/licenses/`. Each component is subject to its own
-license terms.
+See ETHICAL_USE_POLICY.md for complete usage guidelines.
 
-Kali Linux
-- License: Various (GPL, Apache, MIT)
-- Website: https://www.kali.org/
-- Used for: Base OS distribution for agent deployment
+================================================================================
 
-For a complete list of dependencies and their licenses, see:
-- `agent/pyproject.toml` (Python dependencies)
-- `console/backend/pyproject.toml` (Backend dependencies)
-- `console/frontend/package.json` (Frontend dependencies)
-- `third_party/licenses/` (Bundled components)
+THIRD-PARTY COMPONENTS
+
+This software may include or depend on third-party open source components.
+See third_party/licenses/ for attribution and license information.
+
+Key dependencies (to be populated as project develops):
+
+- Kali Linux (Various licenses, see https://www.kali.org/docs/policy/kali-linux-open-source-policy/)
+- Python 3.11+ (PSF License)
+- FastAPI (MIT License)
+- React (MIT License)
+- WireGuard (GPL-2.0)
+- nmap (GPL-2.0)
+- Flipper Zero firmware (GPL-3.0)
+
+(Full list will be generated automatically via SBOM tooling)
+
+================================================================================
+
+TRADEMARKS
+
+"KYNEĒ" and the KYNEĒ logo are trademarks of the KYNEĒ Project.
+
+"Raspberry Pi" is a trademark of Raspberry Pi Ltd.
+"Kali Linux" is a trademark of Offensive Security.
+"Flipper Zero" is a trademark of Flipper Devices Inc.
+
+All trademarks are the property of their respective owners.
+
+================================================================================
+
+DISCLAIMER
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+UNAUTHORIZED USE OF THIS SOFTWARE FOR ILLEGAL ACTIVITIES IS STRICTLY PROHIBITED.
+THE AUTHORS ASSUME NO LIABILITY FOR MISUSE.

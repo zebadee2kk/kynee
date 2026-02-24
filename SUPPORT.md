@@ -2,150 +2,137 @@
 
 ## Getting Help
 
-KYNEĒ is a community-driven open-source project. We offer support through various channels depending on your needs.
+### Before Asking for Help
+
+Please check:
+
+1. **Documentation**: [`docs/`](docs/) and [`README.md`](README.md)
+2. **Existing Issues**: [Search open/closed issues](https://github.com/zebadee2kk/kynee/issues)
+3. **Discussions**: [Search community discussions](https://github.com/zebadee2kk/kynee/discussions)
 
 ---
 
-## Community Support
+## Support Channels
 
 ### GitHub Discussions (Recommended)
 
-**Best for**: General questions, usage help, feature discussions, showcasing projects.
+Best for:
 
-[https://github.com/zebadee2kk/kynee/discussions](https://github.com/zebadee2kk/kynee/discussions)
+- General questions
+- How-to inquiries
+- Feature ideas
+- Community chat
 
-**Categories**:
-- **Q&A**: Ask questions, get help from the community
-- **Show & Tell**: Share your KYNEĒ deployments or use cases (with proper authorization!)
-- **Ideas**: Suggest new features or improvements
-- **General**: Everything else
-
-**Response Time**: Community-driven, usually within 24-48 hours.
+[Start a discussion →](https://github.com/zebadee2kk/kynee/discussions)
 
 ### GitHub Issues
 
-**Best for**: Bug reports, feature requests (with clear specifications).
+Best for:
 
-[https://github.com/zebadee2kk/kynee/issues](https://github.com/zebadee2kk/kynee/issues)
+- Bug reports (use [bug_report.yml](.github/ISSUE_TEMPLATE/bug_report.yml))
+- Feature requests (use [feature_request.yml](.github/ISSUE_TEMPLATE/feature_request.yml))
+- Security questions (use [security_question.yml](.github/ISSUE_TEMPLATE/security_question.yml))
 
-**Before Opening an Issue**:
-1. Search existing issues to avoid duplicates
-2. Use the appropriate template (Bug Report or Feature Request)
-3. Provide as much detail as possible (logs, configs, environment)
-4. **Redact sensitive information** (IPs, credentials, client names)
+**DO NOT** report security vulnerabilities as public issues. See [SECURITY.md](SECURITY.md).
 
----
-
-## Documentation
-
-### Primary Resources
-
-- **README**: [README.md](README.md) — Quick start and overview
-- **Roadmap**: [ROADMAP.md](ROADMAP.md) — Development timeline
-- **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md) — How to contribute
-- **Ethical Use**: [ETHICAL_USE_POLICY.md](ETHICAL_USE_POLICY.md) — Legal/ethical guidelines
-
-### Technical Documentation
-
-- **Architecture**: [`docs/architecture/`](docs/architecture/) — ADRs, design docs
-- **Build Guides**: [`docs/build/`](docs/build/) — OS setup, hardening
-- **Deployment**: [`docs/ops/`](docs/ops/) — Production deployment, backups
-- **API Reference**: [`docs/api/`](docs/api/) — OpenAPI specs
-- **Hardware**: [`hardware/`](hardware/) — BOM, compatibility
+[Open an issue →](https://github.com/zebadee2kk/kynee/issues/new/choose)
 
 ---
 
-## Security Issues
+## Common Questions
 
-**DO NOT report security vulnerabilities via GitHub Issues.**
+### Installation & Setup
 
-See [SECURITY.md](SECURITY.md) for responsible disclosure process.
+**Q: Which Raspberry Pi models are supported?**  
+A: Pi 3 Model B/B+ (reference platform), Pi 4, and Pi Zero 2 W. See [hardware/compatibility-matrix.md](hardware/compatibility-matrix.md).
 
-**Contact**: security@[project-domain] (to be established)  
-**PGP Key**: [To be published]
+**Q: Where can I buy compatible Wi-Fi adapters?**  
+A: See [hardware/bill-of-materials.md](hardware/bill-of-materials.md) for tested models and suppliers.
 
----
+**Q: How do I build the Kali Linux image?**  
+A: See [docs/build/kali-rpi3-minimal.md](docs/build/kali-rpi3-minimal.md) (to be completed in Week 2).
 
-## Professional Support (Future)
+### Legal & Ethical Use
 
-Currently, KYNEĒ is a volunteer-run project. Professional support may be available in the future through:
+**Q: Can I use KYNEĒ for bug bounties?**  
+A: Yes, if the bug bounty program explicitly authorizes this type of testing. Always read the program's rules.
 
-- Commercial support contracts
-- Training workshops
-- Custom development
+**Q: Can I use KYNEĒ on my home network?**  
+A: Yes, you own your home network. However, be aware of ISP terms of service.
 
-Interested organizations: Contact [INSERT EMAIL] with "Professional Support Inquiry" in subject.
+**Q: What if I accidentally scan out-of-scope targets?**  
+A: KYNEĒ has policy enforcement to prevent this, but if it happens:
+1. Stop testing immediately
+2. Notify the client
+3. Document the incident in your audit log
+4. Follow your RoE incident response procedures
 
----
+See [ETHICAL_USE_POLICY.md](ETHICAL_USE_POLICY.md) and [docs/legal/scope-and-authorization.md](docs/legal/scope-and-authorization.md).
 
-## Contributing to Support
+### Technical Issues
 
-Help us help others!
+**Q: Agent won't connect to console**  
+A: Check:
+1. WireGuard configuration (`wg show`)
+2. Firewall rules (UDP 51820)
+3. Console endpoint reachable (`ping console.example.com`)
+4. Try HTTPS fallback mode
 
-### Answer Questions
+See [docs/architecture/adr-0002-transport-design.md](docs/architecture/adr-0002-transport-design.md).
 
-Monitor [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions) and answer questions where you can. Even partial answers or pointing to relevant docs helps.
-
-### Improve Documentation
-
-Found a gap in the docs? Submit a PR! See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-### Triage Issues
-
-Committers and maintainers: Help triage new issues by:
-- Adding labels (`bug`, `enhancement`, `docs`, etc.)
-- Requesting more info from reporters
-- Closing duplicates or stale issues
-
----
-
-## Expected Behavior
-
-When seeking support:
-
-✅ **Do**:
-- Be respectful and patient
-- Provide context (what you tried, what failed, error logs)
-- Redact sensitive information
-- Search before asking
-- Follow up if your issue is resolved (close or comment)
-
-❌ **Don't**:
-- Demand immediate responses (this is a volunteer project)
-- Ask for help with illegal activities (see [ETHICAL_USE_POLICY.md](ETHICAL_USE_POLICY.md))
-- Cross-post the same question in multiple channels
-- Share proprietary client information
+**Q: Flipper Zero not detected**  
+A: See [hardware/flipper/integration-notes.md](hardware/flipper/integration-notes.md) troubleshooting section.
 
 ---
 
-## Response Time Expectations
+## Response Times
 
-| Channel | Typical Response | Priority |
-|---------|------------------|----------|
-| Security vulnerability | 48 hours | Critical |
-| Bug report (critical) | 2-5 days | High |
-| Bug report (non-critical) | 1-2 weeks | Medium |
-| Feature request | 2-4 weeks | Low |
-| General question (Discussions) | 1-3 days | Medium |
+**Community Support** (GitHub Discussions):
 
-**Note**: These are community-driven estimates, not SLAs. For guaranteed response times, consider professional support (when available).
+- Best-effort, typically within 24-48 hours
+- Faster for simple questions
 
----
+**Bug Reports** (GitHub Issues):
 
-## Community Channels (Future)
+- Acknowledged within 7 days
+- Critical bugs: Patched within 7-14 days
+- Non-critical: Triaged for upcoming releases
 
-We may establish:
-- Discord/Slack server (for real-time chat)
-- Monthly community calls (for roadmap updates)
-- Mailing list (for announcements)
+**Security Vulnerabilities** (Private disclosure):
 
-Stay tuned via [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions).
+- Acknowledged within 48 hours
+- See [SECURITY.md](SECURITY.md) for SLAs
 
 ---
 
-## Code of Conduct
+## Commercial Support
 
-All support interactions are governed by our [Code of Conduct](CODE_OF_CONDUCT.md). Be kind, be respectful, be professional.
+**Professional services** are not yet available but are planned for post-1.0.
+
+Interested organizations can express interest in [GitHub Discussions](https://github.com/zebadee2kk/kynee/discussions) with the `business` tag.
+
+---
+
+## Contributing Back
+
+The best way to get support is to contribute:
+
+- Answer questions in Discussions
+- Improve documentation
+- Submit bug fixes
+- Share hardware compatibility findings
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
+## Resources
+
+- **Documentation**: [`docs/`](docs/)
+- **Roadmap**: [ROADMAP.md](ROADMAP.md)
+- **Legal/Compliance**: [docs/legal/](docs/legal/)
+- **Hardware**: [hardware/](hardware/)
+- **Architecture**: [docs/architecture/](docs/architecture/)
 
 ---
 
