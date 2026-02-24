@@ -16,9 +16,9 @@ Architecture Decision Records document significant architectural choices made du
 | ADR # | Title | Status | Date |
 |-------|-------|--------|------|
 | [0001](adr-0001-agent-language.md) | Agent Implementation Language | Proposed | 2026-02-24 |
-| [0002](adr-0002-transport-design.md) | Transport Protocol Design | Proposed | 2026-02-24 |
+| [0002](adr-0002-transport.md) | Transport Protocol Design | Accepted | 2026-02-24 |
 | [0003](adr-0003-data-serialization.md) | Data Serialization Format | Proposed | 2026-02-24 |
-| [0004](adr-0004-audit-log-immutability.md) | Audit Log Immutability Mechanism | Proposed | 2026-02-24 |
+| [0004](adr-0004-audit-logging.md) | Audit Log Immutability Mechanism | Accepted | 2026-02-24 |
 
 ---
 
