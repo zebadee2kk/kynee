@@ -1,55 +1,41 @@
 # Architecture Decision Records (ADRs)
 
-## What is an ADR?
+## Purpose
 
-An Architecture Decision Record (ADR) is a document that captures an important architectural decision made along with its context and consequences.
+This directory contains Architecture Decision Records documenting significant technical decisions made during KYNEĒ development.
 
-**Format**:
-- **Title**: Short noun phrase
-- **Status**: Proposed | Accepted | Deprecated | Superseded
-- **Context**: What forces are at play? (technical, political, social, project)
-- **Decision**: What did we decide?
-- **Consequences**: What becomes easier or harder?
+## Format
 
----
+Each ADR follows this template:
 
-## Index of ADRs
+```markdown
+# ADR-XXXX: Title
 
-| ID | Title | Status | Date |
-|----|-------|--------|------|
-| [ADR-0001](adr-0001-agent-language.md) | Agent Implementation Language | Accepted | 2026-02-24 |
-| [ADR-0002](adr-0002-transport-protocol.md) | Transport Protocol Design | Accepted | 2026-02-24 |
-| [ADR-0003](adr-0003-data-serialization.md) | Data Serialization Format | Accepted | 2026-02-24 |
-| [ADR-0004](adr-0004-audit-log-immutability.md) | Audit Log Immutability Mechanism | Accepted | 2026-02-24 |
-| [ADR-0005](adr-0005-ai-guardrails.md) | AI Recommendation Guardrails | Accepted | 2026-02-24 |
+## Status
+[Proposed | Accepted | Deprecated | Superseded]
 
----
+## Context
+What is the issue we're addressing?
 
-## How to Use ADRs
+## Decision
+What did we decide?
 
-### Creating a New ADR
+## Consequences
+What are the trade-offs?
+```
 
-1. Copy the template from `adr-template.md`
-2. Number it sequentially (`adr-NNNN-title.md`)
-3. Fill in the sections
-4. Submit as a PR with label `architecture`
-5. Update this index
+## Index
 
-### Superseding an ADR
-
-1. Create a new ADR explaining the change
-2. Update the old ADR's status to `Superseded by ADR-XXXX`
-3. Update this index
-
----
-
-## Resources
-
-- [ADR GitHub Organization](https://adr.github.io/)
-- [Michael Nygard's article](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions)
-- [ADR Tools](https://github.com/npryce/adr-tools)
+| ADR | Title | Status | Date |
+|-----|-------|--------|------|
+| [0001](adr-0001-agent-language.md) | Agent Implementation Language | Accepted | 2026-02-24 |
+| [0002](adr-0002-transport-design.md) | Secure Transport Design | Accepted | 2026-02-24 |
+| [0003](adr-0003-data-serialization.md) | Data Serialization Format | Accepted | 2026-02-24 |
+| [0004](adr-0004-audit-log-integrity.md) | Audit Log Immutability Mechanism | Accepted | 2026-02-24 |
+| [0005](adr-0005-console-framework.md) | Console Backend Framework | Proposed | 2026-02-24 |
+| [0006](adr-0006-ai-integration.md) | AI Assistant Integration | Proposed | 2026-02-24 |
 
 ---
 
 **Last Updated**: February 24, 2026  
-**Maintained By**: @zebadee2kk
+**Maintainer**: @zebadee2kk

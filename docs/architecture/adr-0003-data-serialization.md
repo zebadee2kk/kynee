@@ -1,232 +1,144 @@
 # ADR-0003: Data Serialization Format
 
-**Status**: Accepted  
-**Date**: 2026-02-24  
-**Deciders**: @zebadee2kk  
-
----
+## Status
+**Accepted** (2026-02-24)
 
 ## Context
 
-KYNEĒ components (agent, console, AI module) exchange structured data:
+KYNEĒ agents generate structured data (findings, inventory, audit logs) that must be:
 
-- **Findings**: Vulnerability reports, network inventory
-- **Audit Logs**: Immutable records of all actions
-- **Job Dispatch**: Commands from console to agent
-- **Agent Status**: Heartbeats, health metrics
-
-Data must be:
-
-1. **Human-readable** (for debugging, legal review)
-2. **Machine-parseable** (automated processing)
-3. **Schema-validated** (prevent malformed data)
-4. **Language-agnostic** (Python agent, Python/JS console, future Go rewrite)
-5. **Efficient** (Pi 3 has limited resources)
+- **Validated**: Conform to schemas for consistency.
+- **Transmittable**: Sent over network efficiently.
+- **Stored**: Persisted in console database.
+- **Human-readable**: For debugging and report generation.
+- **Extensible**: Allow new fields without breaking old parsers.
 
 **Options Considered**:
 
-### Option 1: JSON
+1. **JSON**
+   - Pros: Universal, human-readable, rich tooling, native browser support
+   - Cons: Verbose, no built-in schema enforcement, no binary efficiency
 
-- ✅ Human-readable
-- ✅ Universal support (Python `json`, JS native, Go `encoding/json`)
-- ✅ Schema validation (JSON Schema)
-- ✅ Debuggable (can inspect with `jq`, text editors)
-- ⚠️ Larger payload than binary formats (~30% overhead)
-- ⚠️ No native timestamp/date types
+2. **Protocol Buffers (protobuf)**
+   - Pros: Compact, fast, strong typing, backward-compatible
+   - Cons: Not human-readable, requires .proto files, compile step
 
-### Option 2: Protocol Buffers (protobuf)
+3. **MessagePack**
+   - Pros: Binary JSON, smaller than JSON, fast
+   - Cons: Less tooling, not human-readable, schema enforcement manual
 
-- ✅ Compact binary format
-- ✅ Fast serialization
-- ✅ Schema enforcement (`.proto` files)
-- ⚠️ Not human-readable (requires `protoc` to inspect)
-- ⚠️ Requires code generation step
-- ⚠️ Harder to debug
-
-### Option 3: MessagePack
-
-- ✅ Binary JSON (smaller than JSON, larger than protobuf)
-- ✅ Faster than JSON
-- ⚠️ Less tooling support
-- ⚠️ Not human-readable
-
-### Option 4: YAML
-
-- ✅ Human-readable
-- ✅ Supports comments
-- ⚠️ Slower parsing than JSON
-- ⚠️ Whitespace-sensitive (error-prone)
-- ⚠️ Security issues (arbitrary code execution in some parsers)
-
-### Option 5: CBOR (Concise Binary Object Representation)
-
-- ✅ Compact
-- ✅ RFC 8949 standard
-- ⚠️ Less adoption than JSON/protobuf
-- ⚠️ Not human-readable
-
----
+4. **YAML**
+   - Pros: Human-readable, supports comments
+   - Cons: Slow parsing, security issues (arbitrary code execution), no schema enforcement
 
 ## Decision
 
-**We will use JSON with JSON Schema validation.**
+**JSON with JSON Schema validation**.
 
 ### Rationale
 
-1. **Human-Readability Priority**
-   - Legal/compliance requirement: Audit logs must be inspectable by non-technical auditors
-   - Debugging: Operators can `cat findings.json` without special tools
-   - Transparency: Clients can review raw data
+1. **Ubiquity**: Every language, tool, and browser supports JSON natively.
+2. **Human-Readable**: Operators can inspect findings in text editors, logs, or CLI (`jq`).
+3. **Schema Validation**: JSON Schema (draft 2020-12) provides strong typing, required fields, enums, and formats.
+4. **Tooling**: Rich ecosystem (`jsonschema` in Python, Ajv in JS, online validators).
+5. **Extensibility**: JSON Schema supports `additionalProperties: false` for strict validation, or `true` for forward compatibility.
+6. **Debugging**: Easy to log, inspect, and diff JSON during development.
 
-2. **Ecosystem Maturity**
-   - Every language has robust JSON support
-   - JSON Schema provides strong validation (types, required fields, enums)
-   - Tooling: `jq`, `jsonlint`, IDE support
+### Schema Location
 
-3. **Performance Acceptable**
-   - Findings are small (<10KB per scan result)
-   - Network bandwidth is not a bottleneck (WireGuard VPN or LAN)
-   - Compression (gzip) reduces size by ~70% if needed
+All schemas stored in `schemas/*.schema.json`:
 
-4. **Future-Proofing**
-   - Allows rewriting components in different languages
-   - JSON is lingua franca of APIs
-
-### Performance Mitigation
-
-- Use `ujson` or `orjson` (10x faster than stdlib `json`)
-- Enable gzip compression for large payloads (>1KB)
-- Stream large datasets (JSONL - JSON Lines format)
-
----
-
-## Implementation
-
-### JSON Schema Definitions
-
-**Location**: `schemas/*.schema.json`
-
-**Example** (`schemas/findings.schema.json`):
-```json
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://kynee.dev/schemas/findings.schema.json",
-  "title": "KYNEĒ Findings",
-  "type": "object",
-  "properties": {
-    "engagement_id": { "type": "string", "format": "uuid" },
-    "agent_id": { "type": "string", "format": "uuid" },
-    "timestamp": { "type": "string", "format": "date-time" },
-    "tool": { "type": "string" },
-    "category": { "type": "string", "enum": ["network", "wireless", "bluetooth", "physical", "credential"] },
-    "severity": { "type": "string", "enum": ["informational", "low", "medium", "high", "critical"] },
-    "description": { "type": "string" },
-    "evidence": { "type": "object" }
-  },
-  "required": ["engagement_id", "agent_id", "timestamp", "tool", "category", "severity", "description"]
-}
-```
+- `findings.schema.json`
+- `inventory.schema.json`
+- `auditlog.schema.json`
+- `agent-status.schema.json`
 
 ### Validation
 
-**Python** (agent, console backend):
-```python
-import jsonschema
-import json
-
-with open('schemas/findings.schema.json') as f:
-    schema = json.load(f)
-
-data = { ... }  # Findings object
-jsonschema.validate(instance=data, schema=schema)
-```
-
-**JavaScript** (console frontend):
-```javascript
-import Ajv from 'ajv';
-import schema from './schemas/findings.schema.json';
-
-const ajv = new Ajv();
-const validate = ajv.compile(schema);
-const valid = validate(data);
-if (!valid) console.error(validate.errors);
-```
-
-### File Formats
-
-**Single Object**: `.json`
-```json
-{ "engagement_id": "...", "findings": [...] }
-```
-
-**Stream of Objects**: `.jsonl` (JSON Lines)
-```json
-{"timestamp": "...", "event": "scan_start"}
-{"timestamp": "...", "event": "finding", "severity": "high"}
-{"timestamp": "...", "event": "scan_complete"}
-```
-
-**When to use JSONL**:
-- Audit logs (append-only)
-- Streaming findings (real-time ingestion)
-
----
+- **Agent**: Validates output before transmission (fail-fast on schema violations).
+- **Console**: Validates input on API ingestion (reject malformed data).
+- **CI**: Schema validation tests in test suite.
 
 ## Consequences
 
 ### Positive
 
-- ✅ Maximum transparency (human + machine readable)
-- ✅ Strong ecosystem (libraries, tooling)
-- ✅ Easy debugging (text editors, `jq`)
-- ✅ Legal compliance (auditable plaintext)
-- ✅ Language-agnostic (future rewrites possible)
+- **Interoperability**: Any tool can consume KYNEĒ data (Splunk, ELK, custom scripts).
+- **Auditability**: JSON logs are grep-able, jq-able, and archivable.
+- **Validation**: JSON Schema catches data errors early (e.g., missing `engagement_id`).
+- **Documentation**: Schemas self-document data structure.
 
 ### Negative
 
-- ⚠️ Larger payloads than binary formats (~30% overhead)
-- ⚠️ Slower parsing than protobuf (~2-5x)
-- ⚠️ No native binary data (must base64-encode)
+- **Verbosity**: JSON is ~30% larger than MessagePack, ~50% larger than protobuf.
+- **Performance**: Parsing JSON is slower than binary formats (acceptable for our scale).
+- **Schema Drift**: Manual discipline required to keep schemas in sync with code.
 
-### Mitigations
+### Neutral
 
-- Use fast JSON libraries (`orjson`, `ujson`)
-- Enable gzip compression for network transport
-- Profile and optimize if performance becomes an issue
+- JSON Schema is evolving (draft 2020-12 is current), but backward-compatible.
 
-### Trade-Offs Accepted
+## Implementation Details
 
-- We prioritize **transparency** and **debuggability** over raw performance
-- For a penetration testing tool, human inspectability is critical
-- Pi 3 can handle JSON parsing for expected workloads (<1000 findings/hour)
+### Example: Findings Output (Agent)
+
+```python
+import json
+from jsonschema import validate
+
+finding = {
+    "engagement_id": "ENG-2026-042",
+    "agent_id": "550e8400-e29b-41d4-a716-446655440000",
+    "finding_id": "f1234567-89ab-cdef-0123-456789abcdef",
+    "timestamp": "2026-03-15T14:32:01Z",
+    "tool": "nmap",
+    "category": "vulnerability",
+    "severity": "high",
+    "title": "SSH weak key exchange algorithms",
+    "description": "Server supports deprecated KEX algorithms",
+    "target": {
+        "ip_address": "10.0.5.42",
+        "port": 22,
+        "protocol": "tcp",
+        "service": "ssh"
+    }
+}
+
+with open("schemas/findings.schema.json") as f:
+    schema = json.load(f)
+
+validate(instance=finding, schema=schema)  # Raises exception if invalid
+print(json.dumps(finding, indent=2))
+```
+
+### Example: Validation (Console API)
+
+```python
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
+import jsonschema
+
+app = FastAPI()
+
+class Finding(BaseModel):
+    engagement_id: str = Field(..., pattern=r"^ENG-[0-9]{4}-[0-9]{3}$")
+    agent_id: str = Field(..., format="uuid")
+    # ... other fields
+
+@app.post("/api/v1/findings")
+async def ingest_finding(finding: Finding):
+    # Pydantic validates automatically
+    # Additional JSON Schema validation if needed
+    return {"status": "accepted", "finding_id": finding.finding_id}
+```
+
+## Alternatives Revisited
+
+- **If bandwidth becomes critical**: Compress JSON with gzip (reduces size ~70%), or use MessagePack for transport + JSON for storage.
+- **If protobuf adoption grows**: Consider hybrid (protobuf for transport, JSON for storage), but adds complexity.
 
 ---
 
-## Future Considerations
-
-### If Performance Becomes Critical
-
-1. **Add protobuf as optional transport**:
-   - JSON for storage/debugging
-   - Protobuf for agent ↔ console communication
-   - Conversion layer in console
-
-2. **Compression**:
-   - Enable gzip for all API responses
-   - Use zstd for long-term log storage
-
-3. **Chunking**:
-   - Split large findings into smaller batches
-   - Stream via JSONL
-
----
-
-## Related Decisions
-
-- [ADR-0002: Transport Protocol](adr-0002-transport-protocol.md) (JSON over WireGuard/HTTPS)
-- [ADR-0004: Audit Log Immutability](adr-0004-audit-log-immutability.md) (JSONL format for logs)
-
----
-
-**Last Updated**: February 24, 2026  
-**Maintained By**: @zebadee2kk
+**Decision Maker**: @zebadee2kk  
+**Date**: February 24, 2026  
+**Supersedes**: None

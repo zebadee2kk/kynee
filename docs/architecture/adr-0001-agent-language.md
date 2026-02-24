@@ -1,117 +1,92 @@
 # ADR-0001: Agent Implementation Language
 
-**Status**: Accepted  
-**Date**: 2026-02-24  
-**Deciders**: @zebadee2kk  
-**Consulted**: Security community, Kali Linux maintainers  
-
----
+## Status
+**Accepted** (2026-02-24)
 
 ## Context
 
-The KYNEĒ agent runs on Raspberry Pi 3 (1GB RAM, ARM architecture) and must:
+The KYNEĒ agent runs on resource-constrained Raspberry Pi 3 hardware (1GB RAM, ARM CPU) and must:
 
-- Integrate with existing security tools (nmap, airodump-ng, hcitool)
-- Parse command-line tool outputs and produce structured JSON
-- Communicate securely with the console (WireGuard, HTTPS)
-- Run as a systemd service with minimal resource usage
-- Support rapid development and testing
+- Interface with Linux security tools (nmap, airodump-ng, hcitool)
+- Parse command-line tool output and convert to JSON
+- Communicate securely with a remote console
+- Maintain audit logs with cryptographic integrity
+- Run as a systemd service with minimal overhead
 
-**Language options considered**:
+**Options Considered**:
 
-1. **Python**
-   - ✅ Native support in Kali Linux
-   - ✅ Rich ecosystem (pyserial, requests, schedule)
-   - ✅ Easy subprocess handling and text parsing
-   - ✅ Fast prototyping
-   - ⚠️ Higher memory usage (~50-100MB baseline)
-   - ⚠️ GIL limits concurrency (mitigated by asyncio)
+1. **Python 3.11+**
+   - Pros: Rich ecosystem (subprocess, asyncio, cryptography), rapid development, Kali Linux pre-installed
+   - Cons: Higher memory usage (~50MB base), slower than compiled languages
 
 2. **Go**
-   - ✅ Compiled binaries (single file deployment)
-   - ✅ Low memory usage (~10-20MB)
-   - ✅ Native concurrency (goroutines)
-   - ⚠️ Cross-compilation for ARM required
-   - ⚠️ Steeper learning curve for contributors
-   - ⚠️ Less mature security tool libraries
+   - Pros: Single binary, low memory (~10MB), fast, good concurrency
+   - Cons: Verbose for CLI tool wrappers, smaller security tool ecosystem
 
 3. **Rust**
-   - ✅ Memory safety guarantees
-   - ✅ Excellent performance
-   - ⚠️ Longer development time
-   - ⚠️ Smaller contributor pool
-   - ⚠️ Compilation times on Pi 3 (cross-compile required)
+   - Pros: Memory-safe, zero-cost abstractions, excellent performance
+   - Cons: Steep learning curve, longer compile times, cross-compilation complexity for ARM
 
-4. **Bash**
-   - ✅ Ubiquitous in Kali Linux
-   - ✅ Direct tool invocation
-   - ⚠️ Error handling is fragile
-   - ⚠️ No structured data handling
-   - ⚠️ Hard to test and maintain
-
----
+4. **Shell Scripts (Bash)**
+   - Pros: Universal, minimal dependencies
+   - Cons: Poor error handling, hard to maintain, no strong typing
 
 ## Decision
 
-**We will implement the agent in Python 3.11+.**
+**Python 3.11+** for the agent implementation.
 
 ### Rationale
 
-1. **Ecosystem Fit**
-   - Kali Linux ships with Python 3 and extensive libraries
-   - Most security tools output text; Python's string handling is superior
-   - Libraries like `pyserial` (Flipper), `pywireguard`, `schedule` are mature
+1. **Ecosystem**: Python has mature libraries for:
+   - CLI tool wrappers (`subprocess`, `sh`)
+   - JSON/YAML parsing (`json`, `pyyaml`)
+   - Cryptography (`cryptography`, `pyca`)
+   - Networking (`asyncio`, `aiohttp`)
+   - Serial communication (`pyserial` for Flipper Zero)
 
-2. **Development Speed**
-   - 8-week roadmap requires rapid iteration
-   - Python allows quick prototyping and testing
-   - Large contributor pool familiar with Python
+2. **Kali Linux Native**: Python 3.11+ is pre-installed on Kali ARM, reducing image size.
 
-3. **Resource Usage Acceptable**
-   - Pi 3 has 1GB RAM; 50-100MB for Python is acceptable
-   - Agent is I/O-bound (waiting on nmap, etc.), not CPU-bound
-   - asyncio mitigates GIL limitations for concurrent network operations
+3. **Rapid Prototyping**: Week 1-8 roadmap requires fast iteration; Python enables this.
 
-4. **Integration**
-   - Subprocess handling (`subprocess.run`) is reliable
-   - JSON schema validation via `jsonschema` library
-   - WireGuard via `subprocess` or `pywireguard` bindings
+4. **Community**: Security tools often have Python APIs or wrappers (e.g., `python-nmap`).
 
-### Performance Mitigation
+5. **Performance Sufficient**: Agent performs mostly I/O-bound tasks (network scans, file writes); CPU is not bottleneck.
 
-- Use `asyncio` for non-blocking I/O
-- Profile with `cProfile` and optimize hot paths
-- Consider Cython for critical sections if needed (future)
+### Mitigations for Cons
 
----
+- **Memory**: Use lightweight libraries, avoid heavy frameworks (e.g., Django).
+- **Speed**: Profile hot paths, offload heavy computation to C extensions if needed.
+- **Typing**: Use `mypy` for static type checking, enforce via CI.
 
 ## Consequences
 
 ### Positive
 
-- ✅ Fast development (aligns with 8-week roadmap)
-- ✅ Easy onboarding for contributors
-- ✅ Rich testing ecosystem (pytest, unittest)
-- ✅ Native Kali Linux integration
+- Fast development velocity (critical for 8-week roadmap)
+- Strong integration with Kali Linux ecosystem
+- Easier onboarding for contributors (Python is widely known)
+- Rich testing ecosystem (`pytest`, `unittest`)
 
 ### Negative
 
-- ⚠️ Higher memory usage than Go/Rust (mitigated: Pi 3 has sufficient RAM)
-- ⚠️ Requires Python runtime on target (mitigated: Kali ships with Python)
-- ⚠️ Slower startup than compiled languages (mitigated: runs as long-lived service)
+- Higher memory footprint vs. Go/Rust (~50MB vs. ~10MB)
+- Requires venv or packaging for dependency isolation
+- Slower execution vs. compiled languages (acceptable for I/O-bound workloads)
 
 ### Neutral
 
-- Packaging as `.deb` with Python dependencies (standard for Kali)
-- Future migration to Go possible if performance becomes critical (data model defined via JSON schemas allows language-agnostic rewrite)
+- May consider Go/Rust rewrite for specific modules (e.g., high-throughput packet processing) in future versions.
+
+## Alternatives Revisited
+
+If performance becomes an issue post-v1.0:
+
+- Profile with `cProfile`, optimize hot paths.
+- Use `Cython` or `PyPy` for JIT compilation.
+- Hybrid approach: Python orchestration + Go/Rust microservices for compute-heavy tasks.
 
 ---
 
-## Related Decisions
-
-- [ADR-0003: Data Serialization Format](adr-0003-data-serialization.md) (JSON schemas allow language independence)
-
----
-
-**Last Updated**: February 24, 2026  
-**Maintained By**: @zebadee2kk
+**Decision Maker**: @zebadee2kk  
+**Date**: February 24, 2026  
+**Supersedes**: None
