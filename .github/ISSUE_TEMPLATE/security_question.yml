@@ -1,0 +1,58 @@
+name: Security Question
+description: Ask about security, compliance, or ethical use (NOT for vulnerability reports)
+title: "[SECURITY] "
+labels: ["security", "question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **⚠️ DO NOT report vulnerabilities here. Use [private security advisory](https://github.com/zebadee2kk/kynee/security/advisories/new) instead.**
+
+        This template is for questions about:
+        - Legal/ethical use
+        - Compliance requirements
+        - Security best practices
+        - RoE clarifications
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Legal authorization
+        - Ethical use policy
+        - RoE requirements
+        - Compliance (PCI-DSS, GDPR, etc.)
+        - Security hardening
+        - Audit logging
+        - Data handling
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What do you need clarification on?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide background (redact client names)
+      placeholder: I'm planning an engagement where...
+
+  - type: checkboxes
+    id: reviewed
+    attributes:
+      label: Documentation Review
+      description: Confirm you've reviewed relevant docs
+      options:
+        - label: I've read the [Ethical Use Policy](../../ETHICAL_USE_POLICY.md)
+          required: true
+        - label: I've read the [Security Policy](../../SECURITY.md)
+          required: true
+        - label: I've reviewed the [RoE Template](../../docs/legal/rules-of-engagement-template.md)
+          required: false

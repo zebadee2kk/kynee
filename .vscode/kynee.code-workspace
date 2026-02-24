@@ -1,27 +1,27 @@
 {
   "folders": [
     {
-      "name": "KYNEĒ Root",
+      "name": "🎯 KYNEĒ Root",
       "path": ".."
     },
     {
-      "name": "Agent",
+      "name": "🤖 Agent",
       "path": "../agent"
     },
     {
-      "name": "Console Backend",
+      "name": "🖥️ Console Backend",
       "path": "../console/backend"
     },
     {
-      "name": "Console Frontend",
+      "name": "🌐 Console Frontend",
       "path": "../console/frontend"
     },
     {
-      "name": "Docs",
+      "name": "📚 Documentation",
       "path": "../docs"
     },
     {
-      "name": "Hardware",
+      "name": "🔧 Hardware",
       "path": "../hardware"
     }
   ],
@@ -30,45 +30,62 @@
       "**/__pycache__": true,
       "**/.pytest_cache": true,
       "**/.mypy_cache": true,
+      "**/.ruff_cache": true,
       "**/node_modules": true,
       "**/dist": true,
       "**/build": true,
-      "**/.eggs": true,
-      "**/*.egg-info": true
+      "**/*.egg-info": true,
+      "**/.DS_Store": true,
+      "**/.venv": true,
+      "**/venv": true
+    },
+    "files.watcherExclude": {
+      "**/__pycache__": true,
+      "**/node_modules": true,
+      "**/.venv": true
+    },
+    "search.exclude": {
+      "**/__pycache__": true,
+      "**/node_modules": true,
+      "**/.venv": true,
+      "**/dist": true,
+      "**/build": true
     },
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
     "python.linting.ruffEnabled": true,
-    "python.formatting.provider": "black",
+    "python.formatting.provider": "none",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     },
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter",
-      "editor.tabSize": 4
+      "editor.formatOnSave": true,
+      "editor.rulers": [88, 120]
     },
     "[typescript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.tabSize": 2
+      "editor.formatOnSave": true
     },
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.tabSize": 2
+      "editor.formatOnSave": true
     },
     "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.tabSize": 2
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[markdown]": {
       "editor.wordWrap": "on",
-      "editor.quickSuggestions": false
+      "editor.rulers": [80, 120]
     },
     "files.associations": {
       "*.code-workspace": "jsonc"
-    }
+    },
+    "git.ignoreLimitWarning": true
   },
   "extensions": {
     "recommendations": [
@@ -79,42 +96,51 @@
       "esbenp.prettier-vscode",
       "dbaeumer.vscode-eslint",
       "ms-azuretools.vscode-docker",
-      "batisteo.vscode-django",
       "ms-vscode.vscode-typescript-next",
       "github.vscode-pull-request-github",
-      "eamodio.gitlens",
+      "github.copilot",
       "redhat.vscode-yaml",
-      "davidanson.vscode-markdownlint"
+      "yzhang.markdown-all-in-one",
+      "davidanson.vscode-markdownlint",
+      "tamasfe.even-better-toml"
     ]
   },
-  "launch": {
-    "version": "0.2.0",
-    "configurations": [
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
       {
-        "name": "Python: Agent",
-        "type": "python",
-        "request": "launch",
-        "program": "${workspaceFolder:Agent}/aetherpi_agent/__main__.py",
-        "console": "integratedTerminal",
-        "cwd": "${workspaceFolder:Agent}"
+        "label": "Agent: Run Tests",
+        "type": "shell",
+        "command": "cd agent && python -m pytest tests/",
+        "group": "test",
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        }
       },
       {
-        "name": "Python: Console Backend",
-        "type": "python",
-        "request": "launch",
-        "module": "uvicorn",
-        "args": [
-          "app.main:app",
-          "--reload",
-          "--host",
-          "0.0.0.0",
-          "--port",
-          "8000"
-        ],
-        "cwd": "${workspaceFolder:Console Backend}",
-        "env": {
-          "PYTHONPATH": "${workspaceFolder:Console Backend}"
-        }
+        "label": "Agent: Lint (Ruff)",
+        "type": "shell",
+        "command": "cd agent && ruff check .",
+        "group": "test"
+      },
+      {
+        "label": "Console Backend: Run Tests",
+        "type": "shell",
+        "command": "cd console/backend && python -m pytest tests/",
+        "group": "test"
+      },
+      {
+        "label": "Console Frontend: Run Tests",
+        "type": "shell",
+        "command": "cd console/frontend && npm test",
+        "group": "test"
+      },
+      {
+        "label": "Console Frontend: Lint",
+        "type": "shell",
+        "command": "cd console/frontend && npm run lint",
+        "group": "test"
       }
     ]
   }

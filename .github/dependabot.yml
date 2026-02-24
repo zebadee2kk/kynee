@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # Python dependencies (agent)
+  - package-ecosystem: "pip"
+    directory: "/agent"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "agent"
+    open-pull-requests-limit: 5
+
+  # Python dependencies (console backend)
+  - package-ecosystem: "pip"
+    directory: "/console/backend"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "console-backend"
+    open-pull-requests-limit: 5
+
+  # npm dependencies (console frontend)
+  - package-ecosystem: "npm"
+    directory: "/console/frontend"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "console-frontend"
+    open-pull-requests-limit: 5
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+    open-pull-requests-limit: 3

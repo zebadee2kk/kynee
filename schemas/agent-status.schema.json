@@ -2,178 +2,98 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://kynee.dev/schemas/agent-status.schema.json",
   "title": "KYNEĒ Agent Status",
-  "description": "Real-time status messages from KYNEĒ agents to the console",
+  "description": "Schema for agent heartbeat and status messages",
   "type": "object",
   "properties": {
     "agent_id": {
       "type": "string",
-      "description": "Agent device UUID",
-      "format": "uuid"
+      "format": "uuid",
+      "description": "Unique agent device identifier"
     },
     "timestamp": {
       "type": "string",
-      "description": "Status message timestamp (ISO 8601 UTC)",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "When this status was generated"
     },
     "status": {
       "type": "string",
-      "description": "Agent operational status",
-      "enum": ["online", "idle", "scanning", "offline", "error"]
+      "enum": ["online", "offline", "idle", "scanning", "transmitting", "error"],
+      "description": "Current agent state"
     },
     "engagement_id": {
       "type": "string",
-      "description": "Current engagement ID (if active)",
-      "pattern": "^ENG-[0-9]{4}-[0-9]{3}$"
+      "description": "Current active engagement (null if idle)"
     },
-    "current_task": {
+    "system": {
       "type": "object",
-      "description": "Currently executing task",
       "properties": {
-        "task_id": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "task_type": {
-          "type": "string",
-          "enum": ["network_scan", "wireless_scan", "bluetooth_scan", "flipper_action", "idle"]
-        },
-        "progress_percent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "eta_seconds": {
-          "type": "number",
-          "minimum": 0
-        }
-      }
-    },
-    "hardware": {
-      "type": "object",
-      "description": "Hardware status",
-      "properties": {
-        "cpu_temp_celsius": {
-          "type": "number"
-        },
-        "cpu_usage_percent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "memory_usage_percent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "disk_usage_percent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "battery_percent": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "wifi_adapters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "interface": {
-                "type": "string"
-              },
-              "chipset": {
-                "type": "string"
-              },
-              "monitor_mode": {
-                "type": "boolean"
-              }
-            }
-          }
-        },
-        "bluetooth_adapters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "interface": {
-                "type": "string"
-              },
-              "version": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "flipper_zero_connected": {
-          "type": "boolean"
-        }
+        "hostname": {"type": "string"},
+        "os": {"type": "string", "examples": ["Kali Linux ARM 2024.4"]},
+        "kernel": {"type": "string"},
+        "uptime_seconds": {"type": "integer", "minimum": 0},
+        "cpu_percent": {"type": "number", "minimum": 0, "maximum": 100},
+        "memory_percent": {"type": "number", "minimum": 0, "maximum": 100},
+        "disk_percent": {"type": "number", "minimum": 0, "maximum": 100},
+        "temperature_celsius": {"type": "number"}
       }
     },
     "network": {
       "type": "object",
-      "description": "Network connectivity status",
       "properties": {
-        "wireguard_connected": {
-          "type": "boolean"
+        "interfaces": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "ip_address": {"type": "string"},
+              "mac_address": {"type": "string"},
+              "status": {"type": "string", "enum": ["up", "down"]}
+            }
+          }
         },
-        "console_reachable": {
-          "type": "boolean"
-        },
-        "last_heartbeat": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "public_ip": {
-          "type": "string",
-          "format": "ipv4"
-        }
+        "vpn_connected": {"type": "boolean"},
+        "vpn_endpoint": {"type": "string"}
       }
     },
-    "errors": {
-      "type": "array",
-      "description": "Recent errors or warnings",
-      "items": {
-        "type": "object",
-        "properties": {
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "level": {
-            "type": "string",
-            "enum": ["warning", "error", "critical"]
-          },
-          "message": {
-            "type": "string"
-          }
-        }
+    "hardware": {
+      "type": "object",
+      "properties": {
+        "model": {"type": "string", "examples": ["Raspberry Pi 3 Model B+"]},
+        "wifi_adapter": {"type": "string"},
+        "bluetooth_adapter": {"type": "string"},
+        "flipper_connected": {"type": "boolean"},
+        "power_source": {"type": "string", "enum": ["usb", "battery", "unknown"]},
+        "battery_percent": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "current_job": {
+      "type": "object",
+      "properties": {
+        "job_id": {"type": "string"},
+        "job_type": {"type": "string"},
+        "started_at": {"type": "string", "format": "date-time"},
+        "progress_percent": {"type": "number", "minimum": 0, "maximum": 100}
+      }
+    },
+    "last_error": {
+      "type": "object",
+      "properties": {
+        "timestamp": {"type": "string", "format": "date-time"},
+        "error_type": {"type": "string"},
+        "message": {"type": "string"}
       }
     },
     "version": {
-      "type": "object",
+      "type": "string",
       "description": "Agent software version",
-      "properties": {
-        "agent_version": {
-          "type": "string",
-          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
-        },
-        "os_version": {
-          "type": "string"
-        },
-        "kernel_version": {
-          "type": "string"
-        }
-      }
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
     }
   },
   "required": [
     "agent_id",
     "timestamp",
     "status",
-    "hardware",
-    "network",
     "version"
   ],
   "additionalProperties": false

@@ -1,111 +1,79 @@
-## Scope
-<!-- Check ONE primary area -->
-- [ ] Agent (`agent/`)
-- [ ] Console Backend (`console/backend/`)
-- [ ] Console Frontend (`console/frontend/`)
-- [ ] Documentation (`docs/`)
-- [ ] Infrastructure (`infra/`, Docker, CI/CD)
-- [ ] Hardware (`hardware/`)
-- [ ] Schemas (`schemas/`)
+## Summary
+
+[Provide a brief description of what this PR does]
 
 ---
 
-## Owner
-<!-- AI agent name or GitHub username -->
-**Owner**: <!-- e.g., AI-Agent-Alpha or @username -->
+## Owner & Area
+
+**Owner**: [Your Name / AI Agent Name]  
+**Area**: [ ] agent | [ ] console-backend | [ ] console-frontend | [ ] docs | [ ] infra | [ ] hardware  
+**Risk Level**: [ ] Low | [ ] Medium | [ ] High
 
 ---
 
-## Description
-### What changed?
-<!-- Brief summary of changes -->
+## Changes
 
-### Why?
-<!-- Motivation, related issue, or roadmap milestone -->
-
-**Closes**: #<!-- issue number, if applicable -->
+- [ ] Added/modified feature X
+- [ ] Fixed bug Y
+- [ ] Updated documentation
+- [ ] Added tests
 
 ---
 
-## Tests
-### Commands Run
+## Testing
+
+**Commands Run**:
 ```bash
-# Paste commands here
+# Example:
+cd agent
+pytest tests/ -v
 ```
 
-### Results
-<!-- e.g., "All tests passed (42/42)" or "Coverage: 87%" -->
+**Results**: [ ] All tests pass ✅ | [ ] Some tests fail ❌ (explain below)
 
----
-
-## Risk Assessment
-<!-- Check one -->
-- [ ] **Low** — New feature, no changes to existing code, well-tested
-- [ ] **Medium** — Modifies existing code, potential for side effects
-- [ ] **High** — Core logic changes, security-sensitive, or breaking changes
-
-### Reasoning
-<!-- Explain risk level -->
-
----
-
-## Overlap & Conflicts
-### Files/Areas Touched
-<!-- List key files modified -->
-- `agent/aetherpi_agent/collectors/network.py` (new file)
-- `agent/tests/test_network_collector.py` (new file)
-- `docs/architecture/agent-design.md` (updated)
-
-### Potential Conflicts
-<!-- Are there other open PRs touching these files? -->
-- [ ] No conflicts expected
-- [ ] May conflict with PR #<!-- number --> (coordinate with owner)
+**Manual Testing** (if applicable):
+- [ ] Tested on Raspberry Pi 3
+- [ ] Tested with Flipper Zero
+- [ ] Tested in console UI
 
 ---
 
 ## Checklist
-<!-- All items must be checked before requesting review -->
 
-### Code Quality
-- [ ] Tests pass locally (`pytest`, `npm test`, or equivalent)
-- [ ] Linting applied (`ruff check`, `eslint`, etc.)
-- [ ] Formatting applied (`black`, `prettier`, etc.)
-- [ ] No commented-out code or TODOs (or filed follow-up issues)
-
-### Documentation
-- [ ] Documentation updated (if behavior changes)
-- [ ] API docs updated (if endpoints/schemas change)
-- [ ] README or other user-facing docs updated (if needed)
-
-### Compliance
-- [ ] Conventional commits used (`feat(agent):`, `fix(console):`, etc.)
-- [ ] No version number changes (unless authorized by maintainers)
-- [ ] Schemas validated (if touching `schemas/*.schema.json`)
-- [ ] Rebased onto latest `main`
-
-### Ethics & Security
-- [ ] Changes comply with [Ethical Use Policy](../ETHICAL_USE_POLICY.md)
-- [ ] No hardcoded secrets or credentials
-- [ ] Audit logging added for security-sensitive actions
+- [ ] Code follows style guidelines (Black/Prettier)
+- [ ] Lint checks pass (Ruff/ESLint)
+- [ ] Tests added/updated for new functionality
+- [ ] Documentation updated (if user-facing)
+- [ ] Conventional commit messages used
+- [ ] No merge conflicts with `main`
+- [ ] Branch rebased on latest `main`
+- [ ] No secrets or sensitive data committed
+- [ ] Complies with ETHICAL_USE_POLICY.md
 
 ---
 
-## Additional Notes
-<!-- Anything reviewers should know? -->
+## Related Issues
+
+Closes #[issue number]  
+Related to #[issue number]
 
 ---
 
-## For Maintainers
-<!-- Maintainers fill this section during review -->
+## Screenshots/Logs (if applicable)
 
-### Review Checklist
-- [ ] Code review complete
-- [ ] Tests adequate
-- [ ] Documentation sufficient
-- [ ] Security considerations addressed
-- [ ] Ready to merge
+[Paste screenshots, terminal output, or logs here]
 
-### Merge Strategy
-- [ ] Squash and merge (preferred for feature branches)
-- [ ] Rebase and merge (for clean commit history)
-- [ ] Merge commit (for release branches only)
+---
+
+## Additional Context
+
+[Any additional information reviewers should know]
+
+---
+
+## For AI Agents: Collaboration Notes
+
+**Files Modified**: [List key files]  
+**Potential Conflicts**: [Note any areas where other PRs might conflict]  
+**Dependencies**: [Any PRs that must merge before this one]

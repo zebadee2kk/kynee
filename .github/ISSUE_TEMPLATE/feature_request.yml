@@ -1,38 +1,35 @@
 name: Feature Request
-description: Suggest a new feature or enhancement for KYNEĒ
+description: Suggest a new feature or enhancement
 title: "[FEATURE] "
 labels: ["enhancement", "triage"]
-assignees: []
-
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for suggesting a feature! Please provide details to help us evaluate and prioritize.
+        Thanks for suggesting a feature! Please ensure it aligns with our [Ethical Use Policy](../../ETHICAL_USE_POLICY.md).
 
   - type: dropdown
     id: component
     attributes:
       label: Component
-      description: Which area should this feature affect?
+      description: Which part of KYNEĒ would this affect?
       options:
         - Agent (Raspberry Pi)
         - Console Backend
         - Console Frontend
         - AI Assistant
-        - Infrastructure
         - Documentation
-        - Hardware Support
-        - Other
+        - Infrastructure/CI
+        - Hardware Integration
     validations:
       required: true
 
   - type: textarea
     id: problem
     attributes:
-      label: Problem / Use Case
-      description: What problem does this feature solve? Why is it needed?
-      placeholder: "As a penetration tester, I need... because..."
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: As a pentester, I need...
     validations:
       required: true
 
@@ -41,7 +38,6 @@ body:
     attributes:
       label: Proposed Solution
       description: How should this feature work?
-      placeholder: "Add a new collector that... which outputs... allowing operators to..."
     validations:
       required: true
 
@@ -49,57 +45,36 @@ body:
     id: alternatives
     attributes:
       label: Alternatives Considered
-      description: What other approaches could solve this problem?
-      placeholder: "I considered using... but it doesn't work because..."
+      description: What other approaches did you consider?
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use Case
+      description: Describe a specific scenario where this would be useful
+      placeholder: During an engagement testing...
+
+  - type: checkboxes
+    id: ethical
+    attributes:
+      label: Ethical Considerations
+      description: Confirm this feature complies with our policies
+      options:
+        - label: This feature is for authorized testing only
+          required: true
+        - label: This feature includes human-in-the-loop approval (if automated)
+          required: false
+        - label: This feature does not enable autonomous exploitation
+          required: true
 
   - type: dropdown
     id: priority
     attributes:
       label: Priority
-      description: How important is this feature to you?
+      description: How important is this feature?
       options:
-        - Nice to have
-        - Would improve workflow
-        - Critical for my use case
+        - Low (nice to have)
+        - Medium (would improve workflow)
+        - High (blocks current work)
     validations:
       required: true
-
-  - type: textarea
-    id: ethical
-    attributes:
-      label: Ethical Considerations
-      description: |
-        How does this feature align with KYNEĒ's ethical use policy?
-        Could it be misused? What safeguards should be included?
-      placeholder: "This feature requires... and should only be enabled when..."
-    validations:
-      required: true
-
-  - type: textarea
-    id: implementation
-    attributes:
-      label: Implementation Ideas
-      description: Technical approach, libraries, APIs, or pseudocode (optional)
-      placeholder: |
-        - Use library X for...
-        - Add new API endpoint: POST /api/v1/...
-        - Store data in...
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: Additional Context
-      description: Screenshots, mockups, diagrams, or links to similar features
-      placeholder: "See similar feature in tool Y: https://..."
-
-  - type: checkboxes
-    id: checklist
-    attributes:
-      label: Pre-Submission Checklist
-      options:
-        - label: I have searched existing issues and this is not a duplicate
-          required: true
-        - label: This feature aligns with KYNEĒ's focus on authorized penetration testing
-          required: true
-        - label: I am willing to contribute to implementation (optional)
-          required: false

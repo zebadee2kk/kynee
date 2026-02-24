@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '0 0 * * 1'  # Weekly on Monday
+    - cron: '0 2 * * 1'  # Weekly on Monday at 2 AM UTC
 
 jobs:
   bandit:
@@ -19,35 +19,43 @@ jobs:
       - name: Install Bandit
         run: pip install bandit[toml]
       - name: Run Bandit
-        run: |
-          bandit -r agent/ console/backend/ -f json -o bandit-report.json || true
-          bandit -r agent/ console/backend/ || true
-      - name: Upload Bandit results
+        run: bandit -r agent/ console/backend/ -f json -o bandit-report.json || true
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: bandit-report
           path: bandit-report.json
 
-  semgrep:
+  npm-audit:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: console/frontend
     steps:
       - uses: actions/checkout@v4
-      - uses: returntocorp/semgrep-action@v1
+      - uses: actions/setup-node@v4
         with:
-          config: >-
-            p/security-audit
-            p/secrets
-            p/owasp-top-ten
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci || echo "No package.json yet"
+      - name: Run npm audit
+        run: npm audit --json > npm-audit.json || true
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: console/frontend/npm-audit.json
 
-  dependency-check:
+  codeql:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
     steps:
       - uses: actions/checkout@v4
-      - name: Run pip-audit (Python)
-        run: |
-          pip install pip-audit
-          pip-audit || echo "pip-audit found issues"
-      - name: Run npm audit (Node.js)
-        run: |
-          cd console/frontend
-          npm audit || echo "npm audit found issues"
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: python, javascript
+      - uses: github/codeql-action/autobuild@v3
+      - uses: github/codeql-action/analyze@v3

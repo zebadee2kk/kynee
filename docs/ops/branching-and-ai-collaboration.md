@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document establishes rules for multiple contributors (human and AI agents) to work on KYNEĒ simultaneously without conflicts. All contributors MUST follow these guidelines.
+This document establishes strict rules for branch management and collaboration to prevent conflicts when multiple AI agents and human developers work in parallel on KYNEĒ.
 
 ---
 
@@ -10,195 +10,248 @@ This document establishes rules for multiple contributors (human and AI agents) 
 
 ### Protected Branches
 
-**`main`**
-- Always releasable, production-quality code
+#### `main`
+- **Always releasable**
 - Direct pushes: **DISABLED**
-- Changes: Only via Pull Requests (PRs)
-- Required checks: Tests pass, security scan pass, review approval
-- Auto-merge: Disabled (manual merge after approval)
+- Merges: Only via Pull Requests with required checks
+- Branch protection:
+  - Required reviews: 1+ approvals
+  - Required status checks: CI tests, security scan, lint
+  - Enforce linear history (squash or rebase)
 
-**`release/x.y`** (e.g., `release/0.9`)
-- Created from `main` for each release
-- Only receives bug fixes (cherry-picked from `main`)
-- Changes merged back to `main` via PR
-- Example: `release/0.9` → tag `v0.9.0` → hotfix → `v0.9.1` → PR to `main`
+#### `release/x.y`
+- Created from `main` for each minor version (e.g., `release/0.9`)
+- Purpose: Bug fixes and patches for that release
+- Changes must be cherry-picked back to `main`
+- Tagged releases: `v0.9.0`, `v0.9.1`, etc.
 
-### Short-Lived Topic Branches
+### Working Branches (Short-Lived)
 
-All work happens in short-lived branches with conventional naming:
+All development work happens on topic branches:
 
 **Naming Convention**:
-- `feat/<area>-<short-description>` — New features
-- `fix/<area>-<short-description>` — Bug fixes
-- `docs/<area>-<short-description>` — Documentation updates
-- `chore/<area>-<short-description>` — Maintenance (deps, CI, etc.)
-- `test/<area>-<short-description>` — Test additions/fixes
+```
+<type>/<area>-<description>
+```
 
-**Area Keywords**:
-- `agent` — Agent codebase (`agent/`)
-- `console-backend` — Console backend (`console/backend/`)
-- `console-frontend` — Console frontend (`console/frontend/`)
-- `infra` — Infrastructure (Docker, Terraform, etc.)
+**Types**:
+- `feat/` — New features
+- `fix/` — Bug fixes
+- `docs/` — Documentation only
+- `chore/` — Maintenance, refactoring, tooling
+- `test/` — Test additions/improvements
+
+**Areas**:
+- `agent` — Agent codebase
+- `console-backend` — Console backend
+- `console-frontend` — Console frontend
 - `docs` — Documentation
-- `hardware` — Hardware specs, BOM, compatibility
+- `infra` — Infrastructure, CI/CD, Docker
+- `hardware` — Hardware guides, BOM
 
 **Examples**:
-- `feat/agent-collectors-network-v0`
-- `feat/console-backend-auth-jwt`
-- `feat/console-frontend-engagement-wizard`
-- `fix/agent-wireguard-reconnect`
-- `docs/legal-roe-template-polish`
-- `chore/ci-security-scan-workflow`
+```
+feat/agent-collectors-network
+feat/console-backend-engagements-api
+feat/console-frontend-findings-table
+fix/agent-policy-scope-validation
+docs/architecture-adr-transport
+chore/infra-ci-security-scanning
+```
+
+**Lifetime**: Target <= 2 days, maximum 1 week.
 
 ---
 
 ## AI Agent Collaboration Rules
 
-### Rule 1: Single-Area Ownership
+### Rule 1: Single-Area Ownership Per Branch
 
-Each branch must focus on **ONE** logical area:
+Each branch is owned by **one AI agent or human** and targets **one logical area**.
 
 ✅ **Good**:
-- `feat/agent-collectors-network` touches only `agent/aetherpi_agent/collectors/network.py`
-- `feat/console-backend-api-devices` touches only `console/backend/app/api/devices.py`
+- `feat/agent-collectors-bluetooth` (AI Agent A, touches only `agent/aetherpi_agent/collectors/bluetooth.py`)
+- `feat/console-backend-auth` (AI Agent B, touches only `console/backend/app/auth/`)
 
 ❌ **Bad**:
-- `feat/multiple-changes` touches `agent/`, `console/backend/`, and `docs/` in unrelated ways
+- `feat/agent-and-console-updates` (mixes agent and console changes)
+- Branch with changes to `agent/`, `console/`, and `docs/` unrelated to a single feature
 
-**Rationale**: Reduces merge conflicts, simplifies reviews, enables parallel work.
+### Rule 2: No Concurrent Structural Changes Per Area
 
-### Rule 2: No Shared Branches
+For **structural changes** (new modules, file moves, major refactors):
 
-A branch is owned by **ONE** contributor (human or AI) at a time:
-
-- Ownership declared in PR description: `Owner: AI-Agent-Alpha` or `Owner: @username`
-- No concurrent edits to the same branch
-- If collaboration needed, coordinate via PR comments or create a new branch
-
-### Rule 3: Short-Lived Branches
-
-**Target lifetime**: 1–2 days maximum
-
-- Open PR as soon as branch is ready
-- Address review feedback promptly
-- Merge or close quickly to reduce divergence from `main`
-
-**For AI agents**: If a task will take >2 days, break it into smaller incremental PRs.
-
-### Rule 4: Serial Editing Per Path
-
-For **structural changes** to critical paths, only **ONE** open PR at a time:
-
-**Critical Paths**:
-- `agent/aetherpi_agent/` (core agent logic)
-- `console/backend/app/` (core API)
-- `console/frontend/src/` (core UI)
-- `schemas/*.schema.json` (data contracts)
+- Only **one open PR per area** at a time
+- Other AI agents must wait for merge or coordinate explicitly
 
 **Example**:
-- AI-Agent-Alpha opens `feat/agent-scheduler-v0` (modifies `agent/aetherpi_agent/scheduler.py`)
-- AI-Agent-Beta must wait until Alpha's PR merges before opening `feat/agent-collectors-wireless`
-- Exception: If Beta's work touches a completely different file (e.g., `collectors/bluetooth.py`), it can proceed in parallel
+- If `feat/agent-scheduler-v0` is open (adding `agent/aetherpi_agent/scheduler.py`), no other agent should create competing scheduler implementations
+- For **additive changes** (new collectors, new endpoints), multiple PRs are OK if they touch different files
 
-**Non-critical paths** (docs, hardware specs, examples) can have multiple concurrent PRs.
+### Rule 3: Declare Ownership in PR
 
-### Rule 5: Rebase Before Merge
+Every PR **must** include in the description:
 
-Before submitting a PR or after `main` updates significantly:
+```markdown
+**Owner**: [AI Agent Name / Human Name]
+**Area**: [agent | console-backend | console-frontend | docs | infra | hardware]
+**Files Modified**: [count]
+**Risk Level**: [Low | Medium | High]
+```
+
+### Rule 4: Rebase Before Merge
+
+Before requesting merge:
 
 ```bash
 git fetch origin
-git checkout feat/your-branch
 git rebase origin/main
 # Resolve conflicts if any
 git push --force-with-lease
 ```
 
-**Why**: Keeps branch history linear, ensures tests run against latest code.
+**Why**: Keeps history linear, prevents merge commits.
 
-**AI agents**: Must rebase if PR conflicts with `main` or if requested by maintainers.
+### Rule 5: Conventional Commits (Mandatory)
 
-### Rule 6: Conventional Commits
-
-All commits MUST follow [Conventional Commits](https://www.conventionalcommits.org/):
+All commits must follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 **Format**:
 ```
-<type>(<scope>): <short description>
+<type>(<scope>): <description>
 
-<optional body>
+[optional body]
 
-<optional footer>
+[optional footer]
 ```
-
-**Types**:
-- `feat` — New feature
-- `fix` — Bug fix
-- `docs` — Documentation only
-- `style` — Formatting, no code change
-- `refactor` — Code restructuring, no behavior change
-- `test` — Adding/fixing tests
-- `chore` — Maintenance (deps, CI, build)
 
 **Examples**:
 ```
-feat(agent): add network collector with nmap integration
-
-Implements NetworkCollector class that wraps nmap and outputs
-JSON per findings.schema.json.
-
-Closes #12
-
-fix(console): handle CSRF token expiration gracefully
-
-docs(legal): refine RoE template language for GDPR compliance
-
-chore(ci): add security scanning with Bandit and Semgrep
+feat(agent): add Bluetooth discovery collector
+fix(console): handle missing engagement_id in findings API
+docs(legal): clarify RoE template scope language
+chore(ci): add security scanning workflow
+test(agent): add unit tests for policy engine
 ```
 
-**AI agents**: MUST use conventional commits for all PR commits.
+**Scopes** (align with areas):
+- `agent`, `console`, `docs`, `infra`, `hardware`, `schemas`
 
-### Rule 7: Required Checks for AI PRs
+**Breaking changes**:
+```
+feat(agent)!: redesign collector interface
 
-Before submitting, AI agents must verify:
+BREAKING CHANGE: Collectors now require async/await.
+```
 
-- [ ] **Linting passes**: `ruff check` (Python), `eslint` (JS/TS)
-- [ ] **Formatting applied**: `black` (Python), `prettier` (JS/TS)
-- [ ] **Tests pass**: `pytest` (agent/console backend), `npm test` (frontend)
-- [ ] **No TODOs or commented code**: Remove or file follow-up issues
-- [ ] **Documentation updated**: If behavior changes, update relevant `.md` files
-- [ ] **Schema compliance**: If touching data models, validate against `schemas/*.schema.json`
+### Rule 6: No Cross-Area Formatting
 
-### Rule 8: Conflict Avoidance for AI Agents
+AI agents must **not**:
 
-AI agents MUST:
+- Run formatters (Black, Prettier) across the entire repo
+- Bulk-rename files outside their assigned area
+- Change shared configuration files (`.gitignore`, `.editorconfig`) unless explicitly tasked
 
-✅ **Do**:
-- Only modify files under assigned area
-- Create new files when extending functionality
-- Add tests for new code
-- Update documentation inline with code changes
+**Why**: Causes massive merge conflicts.
 
-❌ **Don't**:
-- Bulk reformat entire repo (creates massive diffs)
-- Rename/move shared files without coordination
-- Change whitespace in unrelated files
-- Modify version numbers (see Rule 9)
-- Touch files outside assigned scope
+### Rule 7: Avoid Editing Shared Schemas Concurrently
 
-### Rule 9: Versioning Discipline
+Files in `schemas/*.schema.json` are shared contracts.
 
-**Only maintainers** bump version numbers and create tags.
+**Process**:
+1. Propose schema changes in a **dedicated PR** (e.g., `feat/schemas-findings-v2`)
+2. Get approval from maintainer
+3. Merge schema changes **first**
+4. Then implement dependent features in separate PRs
 
-AI agents MUST NOT:
-- Change version in `pyproject.toml`, `package.json`, `__init__.py`
-- Create git tags
-- Modify `CHANGELOG.md` (auto-generated)
+### Rule 8: Version Numbers Off-Limits for AI Agents
 
-**Maintainers will**:
-- Bump versions after PRs merge
-- Tag releases following SemVer
-- Generate changelogs from conventional commits
+AI agents must **never** modify:
+
+- `pyproject.toml` (version field)
+- `package.json` (version field)
+- `CHANGELOG.md` (only maintainers add release notes)
+
+Unless explicitly instructed: "Bump version to X.Y.Z."
+
+---
+
+## Pull Request Workflow
+
+### 1. Create Branch
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feat/agent-collectors-network
+```
+
+### 2. Make Changes
+
+- Write code
+- Write tests
+- Update docs if needed
+- Commit with conventional commit messages
+
+### 3. Pre-PR Checklist
+
+- [ ] All tests pass locally
+- [ ] Code formatted (Black/Prettier)
+- [ ] Lint checks pass (Ruff/ESLint)
+- [ ] No merge conflicts with `main`
+- [ ] Conventional commit messages
+- [ ] Documentation updated (if user-facing change)
+
+### 4. Open Pull Request
+
+Use the PR template (`.github/pull_request_template.md`):
+
+```markdown
+## Summary
+[Brief description of changes]
+
+## Owner
+**Owner**: AI Agent Name / Human Name
+**Area**: agent
+
+## Changes
+- Added network collector using nmap
+- Implemented JSON output per findings schema
+- Added unit tests
+
+## Testing
+```bash
+cd agent
+pytest tests/collectors/test_network.py -v
+```
+All tests pass ✅
+
+## Risk Level
+Low — New feature, no changes to existing code
+
+## Files Changed
+- `agent/aetherpi_agent/collectors/network.py` (new)
+- `agent/tests/collectors/test_network.py` (new)
+- `agent/README.md` (updated)
+
+## Related Issues
+Closes #42
+```
+
+### 5. Address Review Feedback
+
+- Make requested changes
+- Commit with conventional messages
+- Push updates (no force-push after review starts unless discussed)
+
+### 6. Merge
+
+Maintainer will merge using:
+
+- **Squash and merge** (for small PRs)
+- **Rebase and merge** (for clean commit history)
+
+Never use "merge commit" to keep history linear.
 
 ---
 
@@ -206,257 +259,139 @@ AI agents MUST NOT:
 
 ### Semantic Versioning (SemVer)
 
-**Format**: `MAJOR.MINOR.PATCH`
+`MAJOR.MINOR.PATCH`
 
-- `MAJOR`: Breaking changes (e.g., 0.x → 1.0, 1.x → 2.0)
-- `MINOR`: New features, backward-compatible (e.g., 1.1 → 1.2)
-- `PATCH`: Bug fixes, backward-compatible (e.g., 1.2.0 → 1.2.1)
-
-**Pre-1.0 Releases**:
-- `0.y.z` for beta/alpha releases
-- `0.1.0` — Week 1 milestone
-- `0.5.0` — Week 5 milestone (console v0)
-- `0.9.0` — Week 8 milestone (beta release)
-- `1.0.0` — First stable release (post-beta hardening)
+- `0.y.z` — Pre-1.0 (beta), breaking changes allowed
+- `1.0.0` — First stable release
+- `1.1.0` — New features (backwards-compatible)
+- `1.1.1` — Bug fixes (no new features)
 
 ### Git Tags
 
-Releases are tagged as `vX.Y.Z`:
-
 ```bash
-git tag -a v0.9.0 -m "Beta release: Week 8 milestone"
-git push origin v0.9.0
+git tag -a v0.1.0 -m "Week 1 milestone: Governance and schemas"
+git push origin v0.1.0
 ```
 
-**Automated via CI**: `.github/workflows/release.yml` creates GitHub Releases with artifacts.
+### Release Process
 
-### Release Branches
-
-For long-term support:
-
-1. Cut release branch: `git checkout -b release/0.9 main`
-2. Push: `git push origin release/0.9`
-3. Tag: `git tag v0.9.0`
-4. Hotfixes: Cherry-pick to `release/0.9`, tag `v0.9.1`, merge back to `main`
-
----
-
-## Pull Request (PR) Workflow
-
-### Opening a PR
-
-1. **Push branch**:
-   ```bash
-   git push origin feat/your-branch
-   ```
-
-2. **Open PR on GitHub**: Use the PR template (auto-populated)
-
-3. **Fill required fields**:
-   - **Scope**: (agent | console-backend | console-frontend | docs | infra | hardware)
-   - **Owner**: (AI or human identifier)
-   - **Description**: What changed and why
-   - **Tests**: Commands run and results
-   - **Risk**: Low / Medium / High
-   - **Overlap**: Files/areas that may conflict with other branches
-
-4. **Request review**: Tag `@maintainers` or specific reviewers
-
-### PR Template Expectations
-
-Each PR MUST include (see `.github/pull_request_template.md`):
-
-```markdown
-## Scope
-<!-- Check one -->
-- [ ] Agent
-- [ ] Console Backend
-- [ ] Console Frontend
-- [ ] Docs
-- [ ] Infrastructure
-- [ ] Hardware
-
-## Owner
-<!-- AI agent name or human GitHub username -->
-Owner: AI-Agent-Alpha
-
-## Description
-<!-- What changed and why -->
-Implements network collector for agent using nmap wrapper.
-
-## Tests
-<!-- Commands run and results -->
-```bash
-pytest agent/tests/test_network_collector.py -v
-# All tests passed (5/5)
-```
-
-## Risk
-<!-- Low / Medium / High -->
-Low — New feature, no changes to existing code
-
-## Overlap
-<!-- Files/areas that may conflict -->
-None — Creates new file `agent/aetherpi_agent/collectors/network.py`
-
-## Checklist
-- [x] Tests pass
-- [x] Linting/formatting applied
-- [x] Documentation updated
-- [x] Conventional commits used
-- [x] No version number changes
-```
-
-### Review Process
-
-1. **Automated checks**: CI runs tests, linting, security scans
-2. **Human review**: Maintainer reviews code, docs, tests
-3. **Feedback**: Reviewer requests changes via PR comments
-4. **Iteration**: Contributor addresses feedback, pushes new commits
-5. **Approval**: Reviewer approves PR
-6. **Merge**: Maintainer merges (squash or rebase merge)
-
-**AI agents**: Must address review feedback within 24 hours or PR may be closed.
+1. Maintainer creates release branch: `release/0.9`
+2. CI builds artifacts (deb, Docker images)
+3. Tag release: `v0.9.0`
+4. GitHub Release created with changelog
+5. Bug fixes go to `release/0.9`, tagged as `v0.9.1`, merged back to `main`
 
 ---
 
 ## Conflict Resolution
 
-### If PR Conflicts with `main`
+### Rebase Conflicts
 
-1. **Fetch latest**:
-   ```bash
-   git fetch origin
-   git checkout feat/your-branch
-   ```
+If rebase fails:
 
-2. **Rebase**:
-   ```bash
-   git rebase origin/main
-   ```
+```bash
+git rebase origin/main
+# Fix conflicts in editor
+git add <resolved-files>
+git rebase --continue
+git push --force-with-lease
+```
 
-3. **Resolve conflicts**:
-   - Edit conflicted files
-   - `git add <resolved-files>`
-   - `git rebase --continue`
+### Overlapping PRs
 
-4. **Re-run tests**:
-   ```bash
-   pytest  # or npm test
-   ```
+If two PRs touch the same files:
 
-5. **Force-push**:
-   ```bash
-   git push --force-with-lease
-   ```
+1. **First PR merged wins**
+2. Second PR must rebase and resolve conflicts
+3. If conflicts are complex, coordinate in PR comments
 
-**AI agents**: If unable to resolve conflicts automatically, flag for human review.
+### Deadlocks
 
-### If Two PRs Modify Same File
+If multiple AI agents are blocked:
 
-**Scenario**: AI-Agent-Alpha and AI-Agent-Beta both modify `agent/aetherpi_agent/config.py`
-
-**Resolution**:
-1. First PR to merge wins
-2. Second PR must rebase onto latest `main` (includes first PR's changes)
-3. Second contributor resolves conflicts manually
-4. Maintainers may request second PR split into smaller, non-conflicting changes
-
-**Prevention**: Follow Rule 4 (serial editing for critical paths)
+1. Tag maintainer in PR comments
+2. Maintainer decides merge order
+3. Losing PR rebases after winner merges
 
 ---
 
-## AI Agent Handover Sequence
+## CI/CD Integration
 
-To minimize conflicts, work is handed to AI agents in this order:
+### Required Checks (Enforced by Branch Protection)
 
-### Phase 1: Foundations (Week 1-2)
-1. **Architecture AI**: ADRs, schemas, design docs (`docs/architecture/`)
-2. **Platform AI**: Kali build scripts, hardening docs (`scripts/`, `docs/build/`)
+1. **Lint**:
+   - Python: `ruff check`
+   - JavaScript: `eslint`
 
-### Phase 2: Agent Core (Week 3-4)
-3. **Agent Features AI**: Collectors, parsers, audit logging (`agent/aetherpi_agent/`)
-4. **Transport AI**: WireGuard, enrollment, protocol (`agent/aetherpi_agent/transport/`)
+2. **Tests**:
+   - Python: `pytest`
+   - JavaScript: `npm test`
 
-### Phase 3: Console (Week 5)
-5. **Console Backend AI**: FastAPI, DB models, auth (`console/backend/`)
-6. **Console Frontend AI**: React UI, engagement wizard (`console/frontend/`)
+3. **Security Scan**:
+   - `bandit` (Python)
+   - `npm audit` (JavaScript)
+   - Dependency scanning (Dependabot)
 
-### Phase 4: Intelligence (Week 6)
-7. **AI Assistant AI**: Prompt engineering, LLM integration (`console/backend/app/ai/`)
+4. **Build**:
+   - Agent: `pip install -e .`
+   - Console: Docker build
 
-### Phase 5: Integration (Week 7-8)
-8. **Integrations AI**: Flipper, packaging, CI/CD (`agent/collectors/flipper.py`, `.github/workflows/`)
+### Workflow Triggers
 
-**Key**: Each agent works in its designated area during its phase. No overlap between phases.
-
----
-
-## Monitoring & Enforcement
-
-### Branch Protection Rules (GitHub)
-
-Configured on `main`:
-- Require pull request reviews (1 approval minimum)
-- Require status checks to pass:
-  - `test-agent` (pytest)
-  - `test-console-backend` (pytest)
-  - `test-console-frontend` (npm test)
-  - `security-scan` (Bandit, Semgrep)
-  - `lint` (ruff, eslint)
-- Require branches to be up-to-date before merge
-- Restrict pushes (no direct commits)
-- Require linear history (rebase or squash merge)
-
-### Metrics
-
-Maintainers track:
-- Average PR merge time (target: <48 hours)
-- Conflict rate (target: <10% of PRs)
-- Test coverage (target: >80% for critical modules)
-- Open PR count (target: <5 at any time)
+- **On PR**: Run all checks
+- **On push to `main`**: Run checks + build artifacts
+- **On tag `v*`**: Release workflow (build, publish, GitHub Release)
 
 ---
 
-## FAQs
+## Anti-Patterns (Do NOT Do This)
 
-**Q: Can I work on multiple features simultaneously?**
-A: Yes, but create separate branches for each. Don't mix unrelated changes in one PR.
+❌ **Mixing unrelated changes in one PR**
+- "Fixed bug in agent, added console feature, updated docs"
 
-**Q: What if I need to change a file in another agent's area?**
-A: Coordinate via GitHub Discussions or open a small, focused PR for just that change. Tag the area owner for review.
+❌ **Long-lived branches**
+- Branches open for weeks accumulate conflicts
 
-**Q: Can I force-push to my branch?**
-A: Yes, use `git push --force-with-lease` (safer than `--force`). Never force-push to `main` or `release/*`.
+❌ **Editing files outside your area**
+- Agent AI touching `console/` code
 
-**Q: What if CI checks fail?**
-A: Fix the issues locally, commit fixes, and push. CI will re-run automatically.
+❌ **Committing secrets or test data**
+- RoE documents, credentials, packet captures
 
-**Q: How do I update my PR after review feedback?**
-A: Make changes, commit with a descriptive message (e.g., `fix: address review feedback on error handling`), and push. No need to open a new PR.
+❌ **Force-pushing after review starts**
+- Breaks reviewer context
 
-**Q: What if my PR is stale (>7 days old)?**
-A: Rebase onto latest `main`, address any conflicts, and notify maintainers. Stale PRs may be closed after 14 days.
+❌ **Skipping tests**
+- "Will add tests later" — No, tests are required
 
 ---
 
-## Summary: AI Agent Checklist
+## Quick Reference Card
 
-Before opening a PR, verify:
+| Action | Command |
+|--------|--------|
+| Create branch | `git checkout -b feat/area-description` |
+| Commit | `git commit -m "feat(area): description"` |
+| Push | `git push origin feat/area-description` |
+| Update from main | `git fetch && git rebase origin/main` |
+| Force push (after rebase) | `git push --force-with-lease` |
+| Run tests (Python) | `pytest tests/` |
+| Run tests (JS) | `npm test` |
+| Lint (Python) | `ruff check .` |
+| Lint (JS) | `npm run lint` |
+| Format (Python) | `black .` |
+| Format (JS) | `npm run format` |
 
-- [ ] Branch name follows convention (`feat/agent-*`, `fix/console-*`, etc.)
-- [ ] Commits use conventional format (`feat(agent): ...`)
-- [ ] Only modified files in assigned area
-- [ ] Tests pass locally
-- [ ] Linting/formatting applied
-- [ ] Documentation updated (if needed)
-- [ ] No version number changes
-- [ ] Rebased onto latest `main`
-- [ ] PR template filled out completely
-- [ ] No conflicts with other open PRs (checked GitHub PR list)
+---
+
+## Questions?
+
+- **Branching confusion**: Ask in PR comments, tag `@maintainers`
+- **Merge conflicts**: Post conflict details in PR, maintainer will advise
+- **AI agent coordination**: Use GitHub Discussions for planning
 
 ---
 
 **Last Updated**: February 24, 2026  
 **Maintainer**: @zebadee2kk  
-**Enforcement**: Automated via GitHub branch protection + manual review
+**Applies to**: All contributors (humans and AI agents)
