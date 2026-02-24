@@ -1,0 +1,11 @@
+{
+  "agent_id": "880e8400-e29b-41d4-a716-446655440002",
+  "timestamp": "2026-02-24T23:10:00Z",
+  "status": "error",
+  "version": "1.0.0",
+  "last_error": {
+    "timestamp": "2026-02-24T23:09:00Z",
+    "error_type": "Timeout",
+    "message": "VPN disconnected"
+  }
+}

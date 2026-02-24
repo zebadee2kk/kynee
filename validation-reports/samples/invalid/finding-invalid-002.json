@@ -1,0 +1,11 @@
+{
+  "finding_id": "not-uuid",
+  "engagement_id": "ENG",
+  "agent_id": "a",
+  "timestamp": "bad",
+  "tool": "nmap",
+  "category": "network",
+  "severity": "medium",
+  "title": "x",
+  "description": "x"
+}

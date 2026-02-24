@@ -1,0 +1,10 @@
+{
+  "log_id": "770e8400-e29b-41d4-a716-446655440000",
+  "timestamp": "2026-02-24T23:00:00Z",
+  "engagement_id": "ENG-2026-001",
+  "agent_id": "agent-rpi3-alpha",
+  "operator_id": "alice@pentestco.com",
+  "action": "network_scan",
+  "outcome": "success",
+  "log_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

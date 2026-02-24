@@ -1,0 +1,11 @@
+{
+  "finding_id": "550e8400-e29b-41d4-a716-446655440003",
+  "engagement_id": "ENG",
+  "agent_id": "a",
+  "timestamp": "2026-02-24T23:00:00Z",
+  "tool": "nmap",
+  "category": "invalid",
+  "severity": "medium",
+  "title": "x",
+  "description": "x"
+}

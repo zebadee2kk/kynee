@@ -1,0 +1,1 @@
+schema schemas/inventory.schema.json is valid
