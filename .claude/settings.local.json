@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json; json.load\\(open\\(''schemas/findings.schema.json''\\)\\)\")",
+      "Bash(node --version)",
+      "Bash(for file in schemas/*.json)",
+      "Bash(do node -e \"console.log\\(''Validating '' + ''$file'' + ''...''\\); try { JSON.parse\\(require\\(''fs''\\).readFileSync\\(''$file'', ''utf8''\\)\\); console.log\\(''✓ Valid JSON''\\); } catch\\(e\\) { console.log\\(''✗ Invalid JSON: '' + e.message\\); }\")",
+      "Bash(done)",
+      "Bash(git add agent/ console/ docs/architecture/adr-0000-index.md docs/architecture/adr-0002-transport.md docs/architecture/adr-0004-audit-logging.md)",
+      "Bash(git rm docs/architecture/adr-0002-transport-protocol.md docs/architecture/adr-0002-transport-design.md docs/architecture/adr-0004-audit-log-immutability.md docs/architecture/adr-0004-audit-log-integrity.md)",
+      "Bash(git commit:*)",
+      "Bash(git add agent/README.md console/README.md HANDOVER.md docs/DEVELOPMENT_GUIDE.md)",
+      "Bash(python -m pytest tests/unit/ -v --cov=kynee_agent --cov-report=term-missing -k \"not integration\")",
+      "Bash(python -m pip install -e \".[dev]\" -q)",
+      "Bash(python -m pytest tests/unit/ -v --cov=kynee_agent --cov-report=term-missing)",
+      "Bash(python -m pytest tests/unit/ -v --cov=kynee_agent --cov-report=term-missing -q)",
+      "Bash(git add -A)"
+    ]
+  }
+}

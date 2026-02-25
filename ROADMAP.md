@@ -12,68 +12,83 @@ This roadmap outlines an 8-week sprint to deliver a beta-quality KYNEĒ system w
 
 ---
 
-## Week 1: Foundations + Governance
-**Dates**: Feb 24 - Mar 2, 2026  
+## Week 1: Foundations + Governance ✅ COMPLETED
+**Dates**: Feb 24 - Mar 2, 2026
 **Theme**: Establish project structure, legal framework, and architectural decisions
 
 ### Goals
 - [x] Repository initialization with governance documents
-- [ ] Architecture Decision Records (ADRs) for key technical choices
-- [ ] Define data schemas (findings, inventory, audit logs)
-- [ ] Legal/compliance documentation templates
-- [ ] CI/CD pipeline skeleton
+- [x] Architecture Decision Records (ADRs) for key technical choices
+- [x] Define data schemas (findings, inventory, audit logs)
+- [x] Legal/compliance documentation templates
+- [x] CI/CD pipeline skeleton
 
 ### Deliverables
 - [x] `README.md`, `LICENSE`, `CODE_OF_CONDUCT.md`, `ETHICAL_USE_POLICY.md`
-- [ ] `docs/architecture/` — ADRs for:
-  - Agent implementation language (Python vs. Go)
-  - Transport protocol (WireGuard primary, fallback strategy)
-  - Data serialization format (JSON with schemas)
-  - Audit log immutability mechanism (hash chains)
-- [ ] `schemas/*.schema.json` — JSON Schema definitions for:
-  - Findings reports
-  - Asset inventory
-  - Audit events
-  - Agent status messages
-- [ ] `docs/legal/rules-of-engagement-template.md`
-- [ ] `.github/workflows/ci.yml` — Basic linting + tests
+- [x] `docs/architecture/` — ADRs completed for:
+  - [x] Agent implementation language (Python 3.11+)
+  - [x] Transport protocol (WireGuard primary, HTTPS fallback)
+  - [x] Data serialization format (JSON with JSON Schema validation)
+  - [x] Audit log immutability mechanism (hash-chained records)
+- [x] `schemas/*.schema.json` — JSON Schema definitions completed:
+  - [x] Findings reports (`findings.schema.json`)
+  - [x] Asset inventory (`inventory.schema.json`)
+  - [x] Audit events (`auditlog.schema.json`)
+  - [x] Agent status messages (`agent-status.schema.json`)
+- [x] `docs/legal/rules-of-engagement-template.md`
+- [x] `.github/workflows/ci.yml` — CI/CD pipelines with linting and security scans
+- [x] VS Code workspace configuration for multi-AI development
+- [x] Comprehensive project documentation (FAQ, tutorials, dev guides)
+- [x] Validation test suites (12 valid + 12 invalid JSON samples)
+- [x] Codex AI validation passed (10/10 checks)
 
-### Success Criteria
-- Repository structure complete and documented
-- Clear technical direction established via ADRs
-- RoE template suitable for professional engagements
+### Success Criteria ✅
+- [x] Repository structure complete and documented
+- [x] Clear technical direction established via ADRs
+- [x] RoE template suitable for professional engagements
+- [x] All governance documents OSS-compliant
+- [x] CI/CD pipeline fully operational
 
 ---
 
-## Week 2: Hardware Bring-Up + Minimal OS Image
-**Dates**: Mar 3 - Mar 9, 2026  
-**Theme**: Raspberry Pi 3 platform enablement
+## Week 2: Core Modules + Agent Framework ⏳ IN PROGRESS
+**Dates**: Mar 3 - Mar 9, 2026
+**Theme**: Python core implementation, agent coordination, CLI prototype
 
 ### Goals
-- [ ] Reproducible Kali Linux ARM build (<4 GB target)
-- [ ] First-boot provisioning workflow
-- [ ] Baseline security hardening
-- [ ] Hardware compatibility matrix (Wi-Fi/BT adapters)
+- [ ] Implement core Python modules from JSON schemas
+- [ ] Build agent coordination framework (async/RoE-enforced)
+- [ ] Create CLI prototype (4 core commands)
+- [ ] Establish test harness (pytest, >80% coverage)
 
 ### Deliverables
-- [ ] `scripts/image-build/build-kali-minimal.sh`
-- [ ] `docs/build/kali-rpi3-minimal.md` — Build instructions
-- [ ] `docs/build/hardening-baseline.md` — Security checklist:
-  - Unnecessary services disabled (Bluetooth, avahi, etc.)
-  - Host firewall (iptables/nftables) defaults
-  - SSH key-only authentication
-  - NTP time sync configuration
-  - Filesystem encryption (LUKS) guidance
-- [ ] `hardware/compatibility-matrix.md` — Tested adapters:
-  - Alfa AWUS036ACH (Wi-Fi, monitor mode)
-  - Plugable USB-BT4LE (Bluetooth 4.0)
-  - Power banks with 5V/2.5A minimum output
-- [ ] `scripts/provisioning/first-boot.sh` — User creation, SSH setup, disk expansion
+- [ ] `core/` Python module package:
+  - [ ] `core/mission.py` — Mission/engagement data model (from mission-plan-schema.json)
+  - [ ] `core/roe.py` — Rules of Engagement validator (from roe-template-schema.json)
+  - [ ] `core/findings.py` — Findings container (from findings.schema.json)
+  - [ ] `core/inventory.py` — Asset inventory (from inventory.schema.json)
+  - [ ] `core/auditlog.py` — Hash-chained audit logging (from auditlog.schema.json)
+  - [ ] `core/exceptions.py` — Custom exception hierarchy
+- [ ] `agent/` agent framework:
+  - [ ] `agent/coordinator.py` — Async agent manager with policy enforcement
+  - [ ] `agent/base.py` — Base agent class (abstract)
+  - [ ] `agent/policy_engine.py` — RoE policy enforcement
+- [ ] `cli/` command-line interface:
+  - [ ] `cli/commands.py` — 4 core commands: create, plan, list, status
+  - [ ] `cli/main.py` — CLI entry point (Click-based)
+- [ ] `tests/unit/` comprehensive unit tests:
+  - [ ] Test coverage for all core modules (>80% target)
+  - [ ] Test fixtures for mission/RoE/findings
+  - [ ] Integration tests for coordinator
+- [ ] `docs/api/` API reference
+- [ ] `requirements.txt` with production + dev dependencies
 
 ### Success Criteria
-- Bootable Kali image on Pi 3 (verified on hardware)
-- Hardened baseline passes security audit checklist
-- Documented process allows replication by contributors
+- [ ] All 5 core modules pass unit tests (>80% coverage)
+- [ ] Agent coordinator successfully manages 2+ mock agents
+- [ ] CLI executes 4 commands without errors
+- [ ] Audit logs hash-chain validation works end-to-end
+- [ ] CI/CD pipeline green (all tests passing)
 
 ---
 
