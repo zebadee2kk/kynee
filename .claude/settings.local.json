@@ -14,7 +14,9 @@
       "Bash(python -m pip install -e \".[dev]\" -q)",
       "Bash(python -m pytest tests/unit/ -v --cov=kynee_agent --cov-report=term-missing)",
       "Bash(python -m pytest tests/unit/ -v --cov=kynee_agent --cov-report=term-missing -q)",
-      "Bash(git add -A)"
+      "Bash(git add -A)",
+      "Bash(git add docs/WEEK2_IMPLEMENTATION_SUMMARY.md)",
+      "Bash(git add .claude/settings.local.json)"
     ]
   }
 }
