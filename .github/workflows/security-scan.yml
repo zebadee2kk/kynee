@@ -10,6 +10,19 @@ name: Security Scan
     - cron: '0 2 * * *'   # Daily at 2 AM UTC
 
 jobs:
+  gitleaks:
+    name: Gitleaks — Scan for Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   bandit:
     runs-on: ubuntu-latest
     steps:
