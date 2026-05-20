@@ -99,7 +99,7 @@
 ./console/README.md:1:# KYNEE Console
 ./console/README.md:3:The KYNEE console is a web-based command center that manages engagements, agents, findings, and audit logs.
 ./console/README.md:36:| `KYNEE_ENV` | Environment name | `dev` |
-./console/README.md:37:| `DATABASE_URL` | PostgreSQL connection string | `postgresql://kynee:kynee@db:5432/kynee` |
+./console/README.md:37:| `DATABASE_URL` | PostgreSQL connection string | `<db-url>` |
 ./ETHICAL_USE_POLICY.md:5:KYNEĒ is designed exclusively for **authorized security assessments** conducted by licensed professionals. This policy establishes clear boundaries for legal and ethical use.
 ./ETHICAL_USE_POLICY.md:11:You may use KYNEĒ if you meet **ALL** of these conditions:
 ./ETHICAL_USE_POLICY.md:37:You **MUST NOT** use KYNEĒ for:
