@@ -168,7 +168,7 @@ alembic revision --autogenerate -m "Add findings table"
 
 Environment variables:
 ```bash
-DATABASE_URL=postgresql://user:password@localhost:5432/kynee
+DATABASE_URL=<set-db-url-in-env>
 SQLALCHEMY_ECHO=true  # Log SQL queries
 ```
 
@@ -182,7 +182,7 @@ JWT-based authentication will be implemented:
 # Backend
 from kynee_console_backend.core.security import create_access_token
 
-token = create_access_token(data={"sub": "user_id"})
+jwt = create_access_token(data={"sub": "user_id"})
 ```
 
 ```typescript
